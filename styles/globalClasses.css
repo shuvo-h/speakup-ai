@@ -1,0 +1,10 @@
+
+/* layout styles  */
+.d-flex{display: flex;}
+.justifyCenter{justify-content: center;}
+.justifyBetween{justify-content: space-between;}
+.alignCenter{align-items: center;}
+
+/* text-styles  */
+.text-center{text-align: center;}
+

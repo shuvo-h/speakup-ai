@@ -1,0 +1,19 @@
+:root{
+    --whiteLight: #f3f3f3;
+    --whiteDark: #fff;
+    --m10: 10px;
+    --m15: 15px;
+}
+
+/* margin padding styles  */
+.m-0{margin: 0;}
+.m-auto{margin: auto;}
+
+.p-auto{padding: auto;}
+.p-auto{padding: auto;}
+
+
+
+/* color styles  */
+.color-primary-dark{color: var(--whiteDark);}
+.color-primary-light{color: var(--whiteLight);}

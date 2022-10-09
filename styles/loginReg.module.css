@@ -1,0 +1,18 @@
+.logReg_container{
+    height: 100vh;
+    background-image: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+}
+.formFields{
+    margin: auto;
+    width: fit-content;
+}
+
+.formFields form div{
+  gap: 1rem;
+}
+.formFields form input{
+  background-color: transparent;
+  border: 1px solid var(--whiteDark);
+  outline: none;
+  caret-color: yellowgreen;
+}
