@@ -1,7 +1,8 @@
 import React from 'react';
 import HeadCustom from './HeadCustom';
 
-const DashboardLayout = ({metaInfo,children}) => {
+const DashboardLayout = ({metaInfo={},children}) => {
+    
     return (
         <div>
             <HeadCustom metaInfo={metaInfo}></HeadCustom>
@@ -9,9 +10,9 @@ const DashboardLayout = ({metaInfo,children}) => {
                 <h1>Dashboard Header</h1>
             </header>
 
-            <main>
+            <div>
                 {children}
-            </main>
+            </div>
 
             <footer className={`text-center`}>
                 <h1>Dashboard Footer</h1>

@@ -12,6 +12,7 @@ export const addUserService = async(newUserData) =>{
         return {error: true,message: error.message}
     }
 }
+
 export const getUserService = async(email) =>{
     try {
         await db.connect();
