@@ -1,10 +1,11 @@
 import React from 'react';
 import MainLayout from '../client_side/components/common/MainLayout';
-import PackageCards from '../client_side/components/packages/packageCard';
+import FrequentlyAskedQ from '../client_side/components/packages/FrequentlyAskedQ';
+import PackageCards from '../client_side/components/packages/packageCards';
 import { getPackages } from '../client_side/utils/fetchUtils/packageUtils';
 
 const pricingPage_MetaInfo = {
-    title: "Dashboard/SpeakUp-AI",
+    title: "pricing",
     description: "Convert your text to audio file using SpeakUp-AI",
 }
 
@@ -12,11 +13,12 @@ const Pricing = ({packages=[]}) => {
     // console.log(packages);
     return (
         <MainLayout metaInfo={pricingPage_MetaInfo}>
-                <h1>Priceing</h1>
             <section>
                 <PackageCards packages={packages}></PackageCards>
             </section>
-            
+            <section>
+                <FrequentlyAskedQ></FrequentlyAskedQ>
+            </section>
         </MainLayout>
     );
 };
@@ -32,8 +34,8 @@ export const getStaticProps = async() =>{
             props:{
                 packages
             },
-            notFound: false,
-            revalidate: 10  // sec
+            // notFound: true,
+            // revalidate: 10  // sec
         }
         
     }else{

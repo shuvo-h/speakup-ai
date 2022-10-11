@@ -1,34 +1,59 @@
 import Head from 'next/head';
-import NavLink from 'next/link';
-import React from 'react';
-import HeadCustom from './HeadCustom';
+import mainLtST from "./MainLayout.module.css" 
 
-const mainNavItems = [
-    {name:"Home",path:"/"},
-    {name:"Dashboard",path:"/dashboard"},
-    {name:"Pricing",path:"/pricing"},
-]
+import React, { useEffect } from 'react';
+import HeadCustom from './HeadCustom';
+import NavCommon from './NavCommon';
+
 
 const MainLayout = ({metaInfo,children}) => {
+    useEffect(()=>{
+        const classSetterFn = (e) =>{
+            const navElement = document.querySelector('.navScrollTracker');
+            navElement.classList.add(mainLtST.navScrollStyle);
+            if(window.pageYOffset>0){
+                console.log(navElement);
+                navElement.classList.add(mainLtST.navScrollStyle); 
+            }else{
+                navElement.classList.remove(mainLtST.navScrollStyle);
+            }
+        }
+        window.addEventListener('scroll',classSetterFn);
+        return () => window.removeEventListener("scroll", classSetterFn);
+    },[])
+/*
+    // make navbar shadow on scroll
+    useEffect(()=>{
+        const classSetter = (e) =>{
+            
+        }
+        window.addEventListener('scroll',(e)=>{
+            const navElement = document.querySelector('.navScrollTracker');
+            navElement.classList.add(mainLtST.navScrollStyle);
+            if(window.pageYOffset>0){
+                console.log(navElement);
+                navElement.classList.add(mainLtST.navScrollStyle); 
+            }else{
+                navElement.classList.remove(mainLtST.navScrollStyle);
+            }
+          });
+    },[])
+    */
     return (
-        <div style={{backgroundImage: 'linear-gradient(to right, #0f0c29, #302b63, #24243e)'}} className={`color-primary-dark`}>
+        <div className={`color-primary-dark ${mainLtST.main_Layout_container}`}>
             <HeadCustom metaInfo={metaInfo}></HeadCustom>
-
             <header>
-                <nav>
-                    {
-                        mainNavItems.map(nav => <NavLink href={nav.path} key={nav.name}><a>{nav.name}</a></NavLink>)
-                    }
-                </nav>
+                <NavCommon></NavCommon>
             </header>
+            <div className={`${mainLtST.main_Layout_wrapper}`}>
+                <main>
+                    {children}
+                </main>
 
-            <main>
-                {children}
-            </main>
-
-            <footer>
-                Footer part FOOTER main layout
-            </footer>
+                <footer>
+                    <p className='m-0 p-5 text-center'>Copyright © 2020 All Rights Reserved</p>
+                </footer>
+            </div>
         </div>
     );
 };

@@ -10,7 +10,7 @@ const headMetaInfo = {
 const HeadCustom = ({metaInfo={title:"",description:"",favicon: "favicon.ico"}}) => {
     return (
         <Head>
-            <title>{metaInfo.title?? headMetaInfo.title}</title>
+            <title>{metaInfo.title? `${metaInfo.title} / ${headMetaInfo.title}` : headMetaInfo.title}</title>
             <meta name="description" content={metaInfo.description?? headMetaInfo.description} />
             <link rel="icon" href={metaInfo.favicon?? headMetaInfo.favicon} />
         </Head>

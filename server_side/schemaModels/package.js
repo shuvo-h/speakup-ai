@@ -4,6 +4,11 @@ import { gttActiveLanguages } from "../utils/activeLanguageGttUnOfficial";
 
 const packageSchema = new mongoose.Schema(
     {
+        serial_no:{
+            type: Number,
+            required: [true, "Serial number is required"],
+            default: 0 
+        },
         name: {
             type: String,
             required: [true, "Please provide your name"], 
@@ -25,6 +30,12 @@ const packageSchema = new mongoose.Schema(
             default:0,
             min:[0,"Request Character limit can not be negative"]
         },
+        req_per_day: {
+            type: Number,
+            required: [true,"Need request limit for each day"],
+            default:0,
+            min:[0,"Request limit can not be negative"]
+        },
         price: {
             type: Number,
             required: [true,"Price is required for this package"],
@@ -41,7 +52,7 @@ const packageSchema = new mongoose.Schema(
             default:0,
             min:[0,"Yearly discount can not be negative"]
         },
-        discount_offer:{
+        discount_special:{
             type: Number,
             default:0,
             min:[0,"Special discount can not be negative"]
@@ -64,7 +75,7 @@ const packageSchema = new mongoose.Schema(
                 message:"Invalid Language Code"
             }
         }],
-        fileType:[{
+        fileTypes:[{
             extension:{
                 type: String,
                 required: [true,"Audio extension is required"],
@@ -80,12 +91,19 @@ const packageSchema = new mongoose.Schema(
             type: String,
             lowercase:true,
             trim: true,
+            required: [true,"Category for this package is required"],
         },
-        known_for:{
+        commercial:{
             type: String,
             lowercase:true,
             trim: true,
-        }
+            required: [true,"Commercial case of this package is required"],
+        },
+        download:{
+            type: Boolean,
+            required: true,
+            default: true
+        },
     },
     {
         timestamps: true

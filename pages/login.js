@@ -3,12 +3,13 @@ import { addInStateObj } from '../client_side/utils/reactUtils/stateSetter';
 import stylesLogReg from '../styles/loginReg.module.css'
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import { getUserFromCookie } from '../client_side/utils/userUtils';
+import useAuthFromCookie from '../client_side/hooks/useAuthFromCookie';
+
 
 const Login = () => {
     const router = useRouter();
     const [loginInfo,setLoginInfo] = useState({});
-    const user = getUserFromCookie();
+    const {user,isUserLoading} = useAuthFromCookie();
 
     const handleLogin = (e) =>{
         e.preventDefault();;
@@ -32,6 +33,9 @@ const Login = () => {
     
     }
 
+    if (isUserLoading) {
+        return <p>Loading...........</p>
+    }
     if (user?.token) {
         router.push({pathname:"/"});
     }
