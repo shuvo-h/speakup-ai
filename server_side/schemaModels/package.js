@@ -42,6 +42,17 @@ const packageSchema = new mongoose.Schema(
             default:0,
             min:[0,"Price can not be negative"]
         },
+        /*
+            period:{ // missed this package. allow this property in future improvement
+                type: String,
+                required: [true,"Package available duration"],
+                enum:{
+                    values: ["monthly","yearly"],
+                    message: "Duration can not be {VALUE}. Must be 'monthly/yearly'"
+                },
+            
+            },
+        */
         discount_monthly:{
             type: Number,
             default:0,

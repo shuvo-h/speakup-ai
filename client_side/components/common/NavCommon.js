@@ -11,8 +11,7 @@ const mainNavItems = [
 
 
 const NavCommon = () => {
-    const router = useRouter()
-    console.log(router.route);
+    const router = useRouter();
     return (
         <nav className={`d-flex justifyBetween navScrollTracker ${mainLtST.layout_nav}`}>
             <div>

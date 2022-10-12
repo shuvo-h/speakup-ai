@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import DashboardLayout from '../../client_side/components/common/DashboardLayout';
 import { addInStateObj } from '../../client_side/utils/reactUtils/stateSetter';
-// import { gttActiveLanguages } from '../../server_side/utils/activeLanguageGttUnOfficial';
+import { gttActiveLanguages } from '../../server_side/utils/activeLanguageGttUnOfficial';
 import useAuthFromCookie from '../../client_side/hooks/useAuthFromCookie';
 
 const dashboard_MetaInfo = {
@@ -66,6 +66,7 @@ const Order = () => {
                     Your browser does not support the audio element.
                 </audio>
                 <div>
+                    {/* language should come from user packages, not all from static file */}
                     {
                         gttActiveLanguages.map(language => <button style={{backgroundColor: languageCode === language.code ? "green":"skyblue"}} onClick={()=>setLanguageCode(language.code)} key={language.code}>{language.lang}</button>)
                     }

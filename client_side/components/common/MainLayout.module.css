@@ -1,14 +1,15 @@
 .main_Layout_container{
     background-image: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    min-height: 100vh;
 }
 .main_Layout_wrapper{
     margin: auto 10%;
-    min-height: 100vh;
 }
 .layout_nav{
     height: max-content;
     margin: auto 10%;
     padding: 1rem 2rem;
+    transition: all 0.3s ease-in;
 }
 .navScrollStyle{
     box-shadow: rgba(96, 218, 25, 0.3) 0px 1px 2px 0px;
@@ -16,7 +17,7 @@
     position: fixed;
     z-index: 1;
     background-color: rgb(10, 10, 63);
-    width: calc(100vw - 2*10% - 2*2rem);
+    width: calc(100vw - 2*10% - 2*2rem - 1rem); /* calculation of .layout_nav's margin & padding */ 
     transition: all 0.3s ease-in;
 }
 .layout_nav_link{

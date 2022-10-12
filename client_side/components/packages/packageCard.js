@@ -1,11 +1,21 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 import packageST from "../../../styles/package.module.css";
 import {IconRightMark} from '../../utils/Icons/IconRightMark';
 import { pkgDuration } from './packageCards';
 
-const PackageCard = ({packageEl,pkgBtnlight,pkgIdx}) => {
-    console.log(packageEl,);
-
+const PackageCard = ({packageEl,pkgBtnlight,pkgIdx,user}) => {
+    console.log(packageEl,"it idd");
+    const router = useRouter();
+    const {} = useAuth
+    const getPaymentStarthandler = (packageID) =>{
+        // check is user loggedin
+        if (user.token) {
+            router.push({pathname:`/payment/${packageID}`,query:{duration:pkgBtnlight}})
+        }else{
+            router.push({pathname:"/login"})
+        }
+    }
     return (
         <div className={packageST.package_wraper}>
             <div className={packageST.package}>
@@ -25,7 +35,7 @@ const PackageCard = ({packageEl,pkgBtnlight,pkgIdx}) => {
                         </div>
                         <p className='text-center' style={{textTransform:"capitilize"}}>{packageEl.category}</p>
                         {/* <p>per {`${pkgBtnlight === pkgDuration.year? pkgDuration.year:pkgDuration.month}`}</p> */}
-                        <button className={`m-auto ${packageST.pkg_btn}`}>Get started</button>
+                        <button className={`m-auto ${packageST.pkg_btn}`} onClick={()=>getPaymentStarthandler(packageEl._id)}>Get started</button>
                     </div>
                     <div className={`${packageST.pkg_info_list}`}>
                         <ul>

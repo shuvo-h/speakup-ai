@@ -41,3 +41,18 @@ export const getAllPackagesService = async(mainQuery) =>{
         return {error: true,message: error.message}
     }
 }
+
+
+
+export const getPackageByIdService = async(packageID,filters={}) =>{
+    try {
+        await db.connect();
+        const packageResult = await PackageModel.findOne({_id:packageID,...filters}).lean();
+        await db.disconnect();
+        return packageResult;
+    } catch (error) {
+        console.log(error);
+        return {error: true,message: error.message}
+    }
+}
+

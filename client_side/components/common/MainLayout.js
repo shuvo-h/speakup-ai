@@ -12,7 +12,6 @@ const MainLayout = ({metaInfo,children}) => {
             const navElement = document.querySelector('.navScrollTracker');
             navElement.classList.add(mainLtST.navScrollStyle);
             if(window.pageYOffset>0){
-                console.log(navElement);
                 navElement.classList.add(mainLtST.navScrollStyle); 
             }else{
                 navElement.classList.remove(mainLtST.navScrollStyle);
@@ -21,24 +20,8 @@ const MainLayout = ({metaInfo,children}) => {
         window.addEventListener('scroll',classSetterFn);
         return () => window.removeEventListener("scroll", classSetterFn);
     },[])
-/*
-    // make navbar shadow on scroll
-    useEffect(()=>{
-        const classSetter = (e) =>{
-            
-        }
-        window.addEventListener('scroll',(e)=>{
-            const navElement = document.querySelector('.navScrollTracker');
-            navElement.classList.add(mainLtST.navScrollStyle);
-            if(window.pageYOffset>0){
-                console.log(navElement);
-                navElement.classList.add(mainLtST.navScrollStyle); 
-            }else{
-                navElement.classList.remove(mainLtST.navScrollStyle);
-            }
-          });
-    },[])
-    */
+
+    
     return (
         <div className={`color-primary-dark ${mainLtST.main_Layout_container}`}>
             <HeadCustom metaInfo={metaInfo}></HeadCustom>

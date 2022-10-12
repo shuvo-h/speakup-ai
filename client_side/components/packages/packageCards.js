@@ -9,11 +9,10 @@ export const pkgDuration = {
 
 
 
-const PackageCards = ({packages}) => {
+const PackageCards = ({packages,user}) => {
     const [packagesSt,setPackagesSt] = useState([]);
     const [pkgBtnlight,setPkgBtnlight] = useState(pkgDuration.month);
 
-    
     useEffect(()=>{
         if (pkgBtnlight === pkgDuration.year) {
             const calculatedResult = calculatePkgDiscunt(packages?.slice(0,4),"discount_yearly");
@@ -31,7 +30,7 @@ const PackageCards = ({packages}) => {
         }else{
             pkg.price_original = parseFloat(pkg.price);
         }
-        console.log(pkg.price);
+        
         const totalDiscount = parseFloat(pkg[circleTime]) + parseFloat(pkg.discount_special);
         const price_with_discount = parseFloat(pkg.price_original) - (parseFloat(pkg.price_original)*(totalDiscount/100))
         return {...pkg,price_with_discount,discountCal:circleTime};
@@ -54,7 +53,7 @@ const PackageCards = ({packages}) => {
             </div>
             <div className={`${packageST.packages}`}>
                 {
-                    packagesSt.map((packageEl,pkgIdx) => <PackageCard pkgBtnlight={pkgBtnlight} pkgIdx={pkgIdx} packageEl={packageEl} key={packageEl._id}></PackageCard>)
+                    packagesSt.map((packageEl,pkgIdx) => <PackageCard pkgBtnlight={pkgBtnlight} pkgIdx={pkgIdx} packageEl={packageEl} user={user} key={packageEl._id}></PackageCard>)
                 }
             </div>
             
