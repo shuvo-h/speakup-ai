@@ -1,0 +1,91 @@
+.paycard_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+.paycard_container_wrapper{
+    border: 1px solid aqua;
+    border-radius: 0.5rem;
+    padding: 1.5rem 2rem;
+    min-width: 30rem;
+    min-height: 18rem;
+}
+.paycard_container form label{
+    color: white;
+}
+.pay_btn{
+    display: block;
+    margin: 1rem auto;
+    cursor: pointer;
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    background-color: lightblue;
+    border-radius: 8px;
+    border: none;
+}
+
+.pay_btn:hover{
+    background-color: rgb(115, 205, 235);
+    color: blue;
+} 
+
+
+/* Stripe loader btn css styles  start */
+.lds_ellipsis {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 12px;
+    
+}
+.lds_ellipsis div {
+    position: absolute;
+    top: 0px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: rgb(20, 75, 194);
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  }
+  .lds_ellipsis div:nth-child(1) {
+    left: 8px;
+    animation: lds-ellipsis1 0.6s infinite;
+  }
+  .lds_ellipsis div:nth-child(2) {
+    left: 8px;
+    animation: lds-ellipsis2 0.6s infinite;
+  }
+  .lds_ellipsis div:nth-child(3) {
+    left: 32px;
+    animation: lds-ellipsis2 0.6s infinite;
+  }
+  .lds_ellipsis div:nth-child(4) {
+    left: 56px;
+    animation: lds-ellipsis3 0.6s infinite;
+  }
+  @keyframes lds-ellipsis1 {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes lds-ellipsis3 {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+  @keyframes lds-ellipsis2 {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(24px, 0);
+    }
+  }
+/* Stripe loader btn css styles  end */

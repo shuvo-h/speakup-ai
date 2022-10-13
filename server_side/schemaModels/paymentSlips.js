@@ -17,17 +17,7 @@ const PaymentSlipsSchema = new mongoose.Schema(
             type: String // initially not using
         },
         package: {
-            purchase_at:{
-                type: Date,
-                required: [true,"Purchase date is required"],
-
-            },
-            expire_at:{
-                type: Date,
-                required: [true,"Purchase date is required"],
-
-            },
-            info:{
+            id:{
                 type: ObjectId,
                 ref:"Packages",
                 required: [true,"Package reference is required"],
@@ -42,11 +32,21 @@ const PaymentSlipsSchema = new mongoose.Schema(
                 match: [/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,"Invalid email address"],
                 lowercase:true,
             },
-            info:{
+            id:{
                 type: ObjectId,
                 ref:"Users",
                 required: [true,"User reference is required"],
             }
+        },
+        purchase_at:{
+            type: Date,
+            required: [true,"Purchase date is required"],
+            
+        },
+        expire_at:{
+            type: Date,
+            required: [true,"Purchase date is required"],
+            
         },
     },
     {

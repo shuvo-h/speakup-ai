@@ -4,8 +4,11 @@ import {
   useStripe,
   useElements
 } from "@stripe/react-stripe-js";
+import stripeST from "./stripe.module.css";
+import StripePayBTNLoader from "./StripePayBTNLoader";
+import { envCLientInfo } from "../../../utils/envCLientInitializer";
 
-const CheckoutForm = () => {
+const CheckoutForm = ({amount,package_id}) => {
     const stripe = useStripe();
     const elements = useElements();
   
@@ -43,7 +46,8 @@ const CheckoutForm = () => {
         }
       });
     }, [stripe]);
-  
+   
+    
     const handleSubmit = async (e) => {
       e.preventDefault();
   
@@ -59,7 +63,7 @@ const CheckoutForm = () => {
         elements,
         confirmParams: {
           // Make sure to change this to your payment completion page
-          return_url: "http://localhost:3000/payment/6344d2bd23c36408a15d1384/master_card",
+          return_url: `${envCLientInfo.NEXT_PUBLIC_FRONTEND_BASE_URL}/payment/${package_id}/confirm`,
         },
       });
   
@@ -76,18 +80,20 @@ const CheckoutForm = () => {
   
       setIsLoading(false);
     };
-
+    console.log("cv",isLoading);
     return (
         <form id="payment-form" onSubmit={handleSubmit}>
-      <PaymentElement id="payment-element" />
-      <button disabled={isLoading || !stripe || !elements} id="submit">
-        <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
-        </span>
-      </button>
-      {/* Show any error or success messages */}
-      {message && <div id="payment-message">{message}</div>}
-    </form>
+          <PaymentElement id="payment-element" />
+          <div>
+            <button className={`${stripeST.pay_btn}`} disabled={isLoading || !stripe || !elements} id="submit">
+              <span  id="button-text">
+                {isLoading ? <StripePayBTNLoader /> : `Pay $${amount} now`}
+              </span>
+            </button>
+          </div>
+          {/* Show any error or success messages */}
+          {message && <div style={{textAlign:"center", color:"red", marginTop:"10px"}} id="payment-message">{message}</div>}
+      </form>
     );
 };
 

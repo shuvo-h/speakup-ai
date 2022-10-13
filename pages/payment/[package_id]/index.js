@@ -1,9 +1,13 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import NavLink from "next/link";
+import payST from "../../../styles/Payment.module.css"
 import MainLayout from '../../../client_side/components/common/MainLayout';
 import PackageSelected from '../../../client_side/components/payment/PackageSelected';
 import PrivateComponent from '../../../client_side/components/ProtectedComponents/PrivateComponent';
 import useAuthFromCookie from '../../../client_side/hooks/useAuthFromCookie';
+import { RightArrowIcon } from '../../../client_side/utils/Icons/IconRightMark';
+import PaySubNav from '../../../client_side/components/payment/PaySubNav';
 
 
 const PaymentForm = () => {
@@ -11,8 +15,13 @@ const PaymentForm = () => {
     const {package_id,duration} = router.query;
     const {user,isUserLoading} = useAuthFromCookie();
     const [selectedPackage,setSelectedPackage] = useState({});
-    console.log(selectedPackage,"selectedPackage",{package_id,duration});
-
+    // console.log(selectedPackage,"selectedPackage",{package_id,duration});
+    
+    const paymentPageStepShow = [
+        {name:"package",pathname:`/payment/${package_id}?duration=${duration}`, icon: <RightArrowIcon width={30} height={30} />, diable:false},
+        {name:"purchase order",pathname:"", icon: <RightArrowIcon/>, diable:true},
+        {name:"payment",pathname:"", diable:true},
+    ]
     
 
     useEffect(()=>{
@@ -42,13 +51,24 @@ const PaymentForm = () => {
     }
 
 
-    
+    if(!router.isReady || isUserLoading){
+        return <p>Loading.........</p>
+    }
+    if (!package_id || !duration) {
+        router.push({pathname:"/pricing"})
+    }
+
     return (
         <MainLayout>
             <PrivateComponent>
-                <h1>Thi payment details show page Page</h1>
                 <div>
-                    <PackageSelected selectedPackage={selectedPackage}></PackageSelected>
+                    <PaySubNav paymentPageStepShow={paymentPageStepShow}></PaySubNav>
+                    <div>
+                        <PackageSelected selectedPackage={selectedPackage}></PackageSelected>
+                    </div>
+                    <div style={{minHeight:"10rem"}}>
+                        {/* add here more sections  */}
+                    </div>
                 </div>
             </PrivateComponent>
         </MainLayout>
