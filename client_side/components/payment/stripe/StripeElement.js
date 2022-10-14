@@ -15,6 +15,7 @@ const stripePromise = loadStripe(envCLientInfo.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KE
 
 const StripeElement = ({user,amount,duration,pay_card,package_id}) => {
     const [clientSecret, setClientSecret] = React.useState("");
+    
     const purchaseInfo = useMemo(()=>{
       return {
         amount,
@@ -38,7 +39,9 @@ const StripeElement = ({user,amount,duration,pay_card,package_id}) => {
         body: JSON.stringify({ ...purchaseInfo }),
       })
       .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret))
+      .then((data) => {
+        setClientSecret(data.clientSecret);
+      })
       .catch(err=>console.log(err))
       // cleanup the hook
       return ()=>{abortController.abort()}

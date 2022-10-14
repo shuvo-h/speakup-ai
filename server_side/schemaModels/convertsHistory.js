@@ -24,11 +24,7 @@ const ConvertHistorySchema = new mongoose.Schema(
                 required: [true,"User reference is required"],
             }
         },
-        size: {
-            type: Number,
-            required: [true,"File size is required"],
-            min:[0,"File size  can not be negative"]
-        }
+        
     },
     {
         timestamps: true

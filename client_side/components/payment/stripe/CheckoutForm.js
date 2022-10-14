@@ -80,7 +80,7 @@ const CheckoutForm = ({amount,package_id}) => {
   
       setIsLoading(false);
     };
-    console.log("cv",isLoading);
+    
     return (
         <form id="payment-form" onSubmit={handleSubmit}>
           <PaymentElement id="payment-element" />

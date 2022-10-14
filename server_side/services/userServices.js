@@ -24,3 +24,14 @@ export const getUserService = async(email) =>{
         return {error: true,message: error.message}
     }
 }
+export const getUserByIdService = async(userId,fields={}) =>{
+    try {
+        await db.connect();
+        const userResult = await UsersModel.findOne({_id:userId}).select(fields).lean();
+        await db.disconnect();
+        return userResult;
+    } catch (error) {
+        console.log(error.message);
+        return {error: true,message: error.message}
+    }
+}

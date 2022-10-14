@@ -11,6 +11,9 @@
     min-width: 30rem;
     min-height: 18rem;
 }
+.paycard_container_wrapper span{
+  border-radius: 19px;
+}
 .paycard_container form label{
     color: white;
 }
