@@ -3,7 +3,7 @@ import { envInfo } from "./envInitializer";
 
 export const generateToken = user =>{
     const payloadObj = {
-        _id: user.id, 
+        _id: user._id, 
         name: user.name,
         email: user.email,
     }

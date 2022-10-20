@@ -12,7 +12,7 @@ export const createPaymentSlipService = async(newSlipData) =>{
 
 export const getSlipByAgetPayIDAndUserIdService = async(agent_pay_id,user_id) =>{
     try {
-        const paymentSlip = await PaymentSlipsModel.create({agent_pay_id,'userInfo.id':user_id});
+        const paymentSlip = await PaymentSlipsModel.findOne({agent_pay_id,'userInfo.id':user_id}).lean();
         return paymentSlip;
     } catch (error) {
         console.log(error);

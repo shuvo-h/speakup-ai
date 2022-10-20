@@ -7,6 +7,8 @@ import purchaseSuccessImg from "../../../client_side/assets/card/purchase_succes
 import paymentST from "../../../styles/Payment.module.css";
 import NavLink from "next/link"
 import useAuthFromCookie from '../../../client_side/hooks/useAuthFromCookie';
+import { cookieSetConvertCard } from '../../../client_side/utils/cookieUtils/setCookies';
+
 
 const Confirm = () => {
     const router = useRouter();
@@ -15,25 +17,30 @@ const Confirm = () => {
     const [errMessage,setErrMessage] = useState("");
     const [confiemStatus,setConfiemStatus] = useState(false);
     const {payment_intent,redirect_status,package_id} = router.query;
-console.log(router.query);
+// console.log(router.query);
     useEffect(()=>{
         const abortController = new AbortController();
-        if (payment_intent && user.token) {
+        if (redirect_status && payment_intent && user.token) {
             setIsloading(true)
             // fetch the payment_intent id to database update thaat payment is complete and active the package
             fetch(`/api/v1/payment/methods/stripe/${payment_intent}`,{
                 method:"POST",
                 signal: abortController.signal,
-                headers:{'content-type':"application/json"},
+                headers:{
+                    'content-type':"application/json",
+                    'authorization':`Bearer ${user.token}`
+                },
                 body:JSON.stringify({package_id,payment_intent})
             })
             .then(res =>res.json())
             .then(data =>{
                 console.log(data);
-                if (data.modifiedCount > 0) {
-    
+                if (data.card === 'ok') {
+                    // set the card info to state and cookie
+                    cookieSetConvertCard(data);
+                    setConfiemStatus(true)
                 }else{
-    
+                    alert(data.message??"Something went wrong!")
                 }
             })
             .catch(err=>{
