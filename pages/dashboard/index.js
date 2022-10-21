@@ -4,6 +4,7 @@ import DashboardLayout from '../../client_side/components/common/DashboardLayout
 import { addInStateObj } from '../../client_side/utils/reactUtils/stateSetter';
 import { gttActiveLanguages } from '../../server_side/utils/activeLanguageGttUnOfficial';
 import useAuthFromCookie from '../../client_side/hooks/useAuthFromCookie';
+import AudioPlayer from '../../client_side/components/dashboard/AudioPlayer';
 
 const dashboard_MetaInfo = {
     title: "Dashboard/SpeakUp-AI",
@@ -65,6 +66,13 @@ const Order = () => {
                 <audio controls src={audioFile}>
                     Your browser does not support the audio element.
                 </audio>
+
+
+                <section style={{border:"1px solid", padding:"1rem", margin:"auto 10%"}}>
+                    <AudioPlayer></AudioPlayer>
+                </section>
+
+
                 <div>
                     {/* language should come from user packages, not all from static file */}
                     {

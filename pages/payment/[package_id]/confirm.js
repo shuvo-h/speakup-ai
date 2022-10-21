@@ -55,7 +55,7 @@ const Confirm = () => {
     return (
         <MainLayout>
              <PrivateComponent>
-                <h1>Your Purchase is Status</h1>
+                {/* <h1>Your Purchase is Status</h1> */}
                 {
                     confiemStatus 
                         ?    <div className={`d-flex justifyCenter`}>
@@ -73,7 +73,7 @@ const Confirm = () => {
                                     </div>
                                 </div>
                             </div>
-                        :   <h3>Loading........ Need to Update the Purchased package by matching with straipe data with mongo data</h3>
+                        :   <div><h3>Loading........</h3></div>
                 }
                 
              </PrivateComponent>
