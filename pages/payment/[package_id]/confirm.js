@@ -18,6 +18,7 @@ const Confirm = () => {
     const [confiemStatus,setConfiemStatus] = useState(false);
     const {payment_intent,redirect_status,package_id} = router.query;
 // console.log(router.query);
+
     useEffect(()=>{
         const abortController = new AbortController();
         if (redirect_status && payment_intent && user.token) {

@@ -26,7 +26,6 @@ export default handler;
 async function getStripeInfoCtl(req, res,next) {
   const {stripe_intent_id} = req.query;
   const decodedUser = req.decodedUser; 
- 
   try {
     if(decodedUser._id){
       if(stripe_intent_id){
@@ -34,9 +33,11 @@ async function getStripeInfoCtl(req, res,next) {
         // const paymentIntentInfo = await stripe.paymentIntents.retrieve('pi_3LssYXDZzhqf7ann2dlI6iqn',);
         const paymentIntentInfo = await stripe.paymentIntents.retrieve(stripe_intent_id);
         const userPaymentSlip = await getSlipByAgetPayIDAndUserIdService(stripe_intent_id,decodedUser._id);
+        
         if ((parseFloat(userPaymentSlip.amount)*100).toFixed(2) === (paymentIntentInfo.amount).toFixed(2) && (parseFloat(userPaymentSlip.amount)*100).toFixed(2) === (paymentIntentInfo.amount_received).toFixed(2)) {
           // check if the user already has an exist convertCard, so make upsert->True
           const isExistCard = await checkIsConverCardExistByUserId(decodedUser._id);
+          
           const newConvertCardInfo = {
             user_id: decodedUser._id,
             package_start: userPaymentSlip.package_start,
@@ -48,14 +49,14 @@ async function getStripeInfoCtl(req, res,next) {
             size: 0,
             file_count: 0
           }
-          if (isExistCard._id) {
+          if (isExistCard?._id) {
             // update the card
             delete newConvertCardInfo.user_id; // delete the user_id, we don't want to update it
             delete newConvertCardInfo.size; // delete the size, we don't want to update it
             delete newConvertCardInfo.file_count; // delete the file_count, we don't want to update it
             newConvertCardInfo.card_status = new Date(userPaymentSlip.package_expire) > new Date() ? 'active':'inactive'
             const updatedCard = await updateConverCardByUserIdService(decodedUser._id,newConvertCardInfo);
-            console.log(updatedCard,"updatedCard");
+            
             if (!updatedCard.error) {
               res.status(200).json({card:"ok",...updatedCard})
             }else{
@@ -64,7 +65,7 @@ async function getStripeInfoCtl(req, res,next) {
           }else{
             // create the card as it is new user
             const newCard = await createConverCardService(newConvertCardInfo);
-            console.log(newCard,"newCard");
+  
             if (newCard._id) {
               res.status(200).json({card:"ok",...newCard})
             }else{
@@ -81,6 +82,7 @@ async function getStripeInfoCtl(req, res,next) {
       throw new Error("Invalid Authotication");
     }
   } catch (error) {
+    console.log(error);
     res.status(403).json({error:true,message: error.message})
   }
   

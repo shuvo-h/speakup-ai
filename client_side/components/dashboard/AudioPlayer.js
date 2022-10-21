@@ -7,10 +7,6 @@ const AudioPlayer = () => {
     const [duration,setDuration] = useState(0);
     const [currentTime, setCurrentTime] = useState(0);
 
-    const chapters = [
-        {start:10,end:25},
-        {start:50,end:75},
-    ]
     // references 
     const audioRef = useRef();
     const audioProgressbarRef = useRef();
@@ -30,6 +26,14 @@ const AudioPlayer = () => {
         audioProgressbarRef.current.max = seconds;
     }
 
+    // stop the player when audio ended
+    useEffect(() => {
+        if (currentTime == duration) {
+          togglePlayPause();
+          timeTravel(0);
+        }
+    }, [currentTime]);
+
     
     const calculateAudioTime = (durationInSeconds) =>{
         const minutes = Math.floor(durationInSeconds / 60);
@@ -47,7 +51,7 @@ const AudioPlayer = () => {
         const prevValue = isPlaying;
         setIsPlaying(!prevValue);
         if (!prevValue) {
-            audioRef.current.play();
+            audioRef.current?.play();
             audioRef.current.playbackRate = 1.0; // 0 to 10; 0.25x to 2x
             animationRef.current = requestAnimationFrame(whilePlayingFn);
         }else{
@@ -67,15 +71,16 @@ const AudioPlayer = () => {
     }
 
     const backThirtySec = () =>{
-        audioProgressbarRef.current.value = Number(audioProgressbarRef.current.value) - 30;
-        changeRange();
+        timeTravel(Number(audioProgressbarRef.current.value) - 30);
     }
     const forwardThirtySec = () =>{
+        timeTravel(Number(audioProgressbarRef.current.value) + 30);
 
-        audioProgressbarRef.current.value = Number(audioProgressbarRef.current.value) + 30;
+    }
 
+    const timeTravel = (newTime) => {
+        audioProgressbarRef.current.value = newTime;
         changeRange();
-
     }
 
     const audioVolumeHandler = () =>{
@@ -84,6 +89,7 @@ const AudioPlayer = () => {
     const audioSpeedHandler = (speedX) =>{
         audioRef.current.playbackRate = parseFloat(speedX);
     }
+
     return (
         <div>
             <h1>Cusom My Audio Player</h1>
@@ -105,19 +111,6 @@ const AudioPlayer = () => {
                 {/* progress bar  */}
                 <div className={audioST.progressbar_wrapper}>
                     <input className={audioST.progressBar} onChange={changeRange} ref={audioProgressbarRef} type="range" defaultValue={'0'}/>
-                    {chapters.map((chapter,i)=>{
-                        const leftStyle = (chapter.start/duration)*100;
-                        const widthStyle = (chapter.end-chapter.start)/duration*100;
-                        return (<div 
-                                className={audioST.chapter} 
-                                style={{
-                                    '--left': `${leftStyle}%`,
-                                    '--width': `${widthStyle}%`,
-                                }}
-                                key={i}
-                            ></div>)
-                    })}
-                    <div className={audioST.chapter}></div>
                 </div>
 
                 {/* Duration  */}

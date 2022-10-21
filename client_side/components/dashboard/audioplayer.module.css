@@ -159,15 +159,3 @@
     background: var(--selectedKnobby);
   }
 
-
-  .chapter{
-    display: block;
-    height: 10px;
-    background-color: var(--primary);
-    position: absolute;
-    top: 6px;
-    left: var(--left);
-    width: var(--width);
-    pointer-events: none;
-    z-index: 2;
-  }

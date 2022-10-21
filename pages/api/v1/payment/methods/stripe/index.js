@@ -10,7 +10,7 @@ import { calculatePackageAmount } from "../../../../../../server_side/utils/pack
 const stripe = require("stripe")(envInfo.STRIPE_SECRET_KEY);
 
 const calculateOrderAmount = (amountIn_USD) => {
-    return parseFloat(amountIn_USD) * 100; // stripe cut payment with cent, so multiply 100 to make usd to cent
+    return parseInt(parseFloat(amountIn_USD) * 100); // stripe cut payment with cent, so multiply 100 to make usd to cent
 };
 
 const organizePuschaseInfo = async(pruchaseData) =>{
@@ -56,6 +56,7 @@ const organizePuschaseInfo = async(pruchaseData) =>{
 export default async function handler(req, res) {
   try {
     const newOrder = await organizePuschaseInfo(req.body);
+    
     if (!newOrder.error) {
      
       // Create a PaymentIntent with the order amount and currency

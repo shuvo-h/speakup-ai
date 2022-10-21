@@ -29,7 +29,7 @@ const MainLayout = ({metaInfo,children}) => {
                 <NavCommon></NavCommon>
             </header>
             <div className={`${mainLtST.main_Layout_wrapper}`}>
-                <main>
+                <main className={`${mainLtST.main_Layout_body_middle}`}>
                     {children}
                 </main>
 

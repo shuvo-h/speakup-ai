@@ -33,17 +33,37 @@ const ConvertCardSchema = new mongoose.Schema(
             default:0,
             min:[0,"Character limit can not be negative"]
         },
+        character_limit_reamining:{
+            type: Number,
+            required: [true,"Need  a limit for the total character reamining"],
+            default:0,
+            min:[0,"Character reamining limit can not be negative"]
+        },
         character_limit_per_req: {
             type: Number,
             required: [true,"Need  a character limit for each request"],
             default:0,
             min:[0,"Request Character limit can not be negative"]
         },
+        character_limit_per_req_reamining: {
+            type: Number,
+            required: [true,"Need  a character limit reamining for each request"],
+            default:0,
+            min:[0,"Request Character limit reamining can not be negative"]
+        },
         req_per_day: {
             type: Number,
             required: [true,"Need request limit for each day"],
             default:0,
             min:[0,"Request limit can not be negative"]
+        },
+        req_per_day_reamining: {
+            next_date:{
+                type: Date,
+                required: [true,"Date of next day is required to track remaining request per day."],
+                default: 
+            },
+            req_reamining:{}
         },
 
         size: { // during deleting this card after expire, add this size with file count to my special collection to keep record how much this tool has converted

@@ -5,6 +5,9 @@
 .main_Layout_wrapper{
     margin: auto 10%;
 }
+.main_Layout_body_middle{
+    min-height: calc(100vh - 9rem);
+}
 .layout_nav{
     height: max-content;
     margin: auto 10%;
