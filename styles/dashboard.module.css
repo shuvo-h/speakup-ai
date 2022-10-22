@@ -1,4 +1,9 @@
 .user_status_card{
     border: 1px solid;
     width: max-content;
+    border-radius: 0.3rem;
+    transform: skew(-15deg,-12deg);
+}
+.convert_card_info{
+    gap: 2rem;
 }

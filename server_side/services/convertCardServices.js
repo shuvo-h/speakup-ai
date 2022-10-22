@@ -6,7 +6,7 @@ export const createConverCardService = async(newConverCard={}) =>{
         await db.connect();
         const result = await ConvertCardModel.create(newConverCard);
         await db.disconnect();
-        return result
+        return result.toJSON();
     } catch (error) {
         console.log(error);
         return error;

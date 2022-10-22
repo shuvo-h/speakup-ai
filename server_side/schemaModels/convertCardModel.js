@@ -61,9 +61,18 @@ const ConvertCardSchema = new mongoose.Schema(
             next_date:{
                 type: Date,
                 required: [true,"Date of next day is required to track remaining request per day."],
-                default: 
+                default: new Date(new Date().setDate(new Date().getDate()+1)).toISOString().split("T")[0], // next day
             },
-            req_reamining:{}
+            req_reamining:{
+                type: Number,
+                required: true,
+                default: function(){
+                    if (this.req_per_day) {
+                        return this.req_per_day;
+                    }
+                    return 0;
+                },
+            }
         },
 
         size: { // during deleting this card after expire, add this size with file count to my special collection to keep record how much this tool has converted
