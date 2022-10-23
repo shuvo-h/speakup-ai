@@ -10,6 +10,11 @@ const ConvertCardSchema = new mongoose.Schema(
             required: [true,"User reference is required"],
             unique:[true,"Duplicate convert card!"]
         },
+        package_id:{
+            type: ObjectId,
+            ref:"Packages",
+            required: [true,"Package reference is required"],
+        },
         package_start: {
             type: Date,
             required: [true,"Purchase date is required"],
@@ -36,8 +41,13 @@ const ConvertCardSchema = new mongoose.Schema(
         character_limit_reamining:{
             type: Number,
             required: [true,"Need  a limit for the total character reamining"],
-            default:0,
-            min:[0,"Character reamining limit can not be negative"]
+            min:[0,"Character reamining limit can not be negative"],
+            default: function () {
+                if (this.character_limit) {
+                    return this.character_limit;
+                }
+                return 0;
+            },
         },
         character_limit_per_req: {
             type: Number,
@@ -45,17 +55,11 @@ const ConvertCardSchema = new mongoose.Schema(
             default:0,
             min:[0,"Request Character limit can not be negative"]
         },
-        character_limit_per_req_reamining: {
-            type: Number,
-            required: [true,"Need  a character limit reamining for each request"],
-            default:0,
-            min:[0,"Request Character limit reamining can not be negative"]
-        },
         req_per_day: {
             type: Number,
             required: [true,"Need request limit for each day"],
+            min:[0,"Request limit can not be negative"],
             default:0,
-            min:[0,"Request limit can not be negative"]
         },
         req_per_day_reamining: {
             next_date:{

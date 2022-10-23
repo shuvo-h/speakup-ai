@@ -1,9 +1,145 @@
+.card_fileInfo_container{
+    margin-top: 2rem;
+}
 .user_status_card{
-    border: 1px solid;
-    width: max-content;
+    width: 16rem;
+    height: 18rem;
     border-radius: 0.3rem;
-    transform: skew(-15deg,-12deg);
+    display: inline-block;
+    border: 12px solid #2daeb3;
+    border-radius: 8px;
+    transform: rotate(10deg) skew(-3deg, -7deg);
+    background-color: #4343b0b3;
+    color: #e4ff38de;
+    box-shadow: 8px 7px 50px 0px #babf5a66;
+}
+.user_status_card a{
+    color: inherit;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 1px solid peru;
+    border-radius: 0.5rem;
+    background-color: #15159166;
+}
+.user_status_card a:hover{
+    background-color: #151591cc;
+    color: #eee;
 }
 .convert_card_info{
     gap: 2rem;
+}
+.convert_card_buy_btn{
+    height: 100%;
+}
+ /* flip the buy button in convert card  */
+.convert_card_buy_btn_flip{
+    animation: rotation 4s infinite linear; 
+}
+.convert_card_buy_btn_flip:hover{
+    -webkit-animation-play-state: paused;
+    -moz-animation-play-state: paused;
+    -o-animation-play-state: paused;
+    animation-play-state: paused;
+}
+
+@keyframes rotation {
+    0%{ transform:rotatey(-45deg); }
+    50%{ transform:rotatey(0deg); }
+    100%{ transform:rotatey(45deg);}
+}
+
+/* convert card info styles  */
+.card_name{
+    font-size: 1.3rem;
+    font-weight: bolder;
+    color: #FFFFFF;
+    text-shadow: 3px 5px 2px rgb(116, 168, 72);
+}
+.card_status{
+    font-size: 40px;
+    color: #68cc54;
+    font-family: "Arial Black", Gadget, sans-serif;
+    -webkit-text-stroke: 1px yellow;
+    text-shadow: 0px 0px 0 rgb(99,199,79),
+                 1px 1px 0 rgb(94,194,74),
+                 2px 2px 0 rgb(89,189,69),
+                 3px 3px 0 rgb(84,184,64),
+                 4px 4px 0 rgb(79,179,59),
+                 5px 5px 0 rgb(74,174,54),
+                 6px 6px 0 rgb(69,169,49),
+                 7px 7px 0 rgb(64,164,44),
+                 8px 8px 0 rgb(59,159,39),
+                 9px 9px 0 rgb(54,154,34),
+                 10px 10px  0 rgb(49,149,29),
+                 11px 11px 10px rgba(80,148,31,0.51),
+                 11px 11px 1px rgba(80,148,31,0.5),
+                 0px 0px 10px rgba(80,148,31,.2);
+}
+
+/* language and file types sty;es  */
+.side_part{
+    margin: 1.2rem auto;
+    padding: 1rem;
+    border-bottom: 1px solid #9a9a9a;
+}
+.language_list select{
+    color: #9acd32;
+    outline: none;
+    background-color: transparent;
+}
+.language_list select  option{
+    background-color: #00008bce
+}
+
+.file_types{
+    line-height: 25px;
+}
+.file_types button{
+    --active-fileType_bg:  rgb(99, 66, 114);
+    --inActive-fileType_bg:  rgb(137, 135, 138);
+    color: #acf51a;
+    border: none;
+    cursor: pointer;
+    /* write this bg color with var() in inline css style to make dynamic */
+    /* background-color: var(--active-fileType_bg); */
+    /* background-color: var(--inActive-fileType_bg); */
+}
+.file_types button:hover{
+    color: #fff;
+}
+
+
+/* text input area styles  */
+.textInputArea{
+    flex-grow: 1;
+    margin-right: 4rem;
+}
+.textInputArea textarea{
+    width: 100%;
+    overflow: hidden;
+    min-height: 400px;
+    max-height: 1000px;
+    resize: none;
+    overflow-y: scroll;
+    border-radius: 0.3rem;
+    background-color: rgb(202, 205, 206);
+    font-size: 1rem;
+}
+.textInputArea textarea:focus{
+    outline: 1px dashed yellowgreen;
+}
+.textInputArea button{
+    border: none;
+    display: block;
+    margin: 1rem auto;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    font-weight: 700;
+    background-color: lightskyblue;
+}
+.textInputArea button:hover{
+    background-color: rgb(58, 144, 197);
+    cursor: pointer;
+    color: #fff;
 }

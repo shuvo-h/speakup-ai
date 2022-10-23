@@ -15,9 +15,11 @@ const PrivateComponent = ({children}) => {
         router.push({pathname:"/login"})
     }
 
-    return children;
+    if (user.token) {
+        return children;
+    }
 
-    
+    return <h2>Loading.........</h2>
 };
 
 export default PrivateComponent;

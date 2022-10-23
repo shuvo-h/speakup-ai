@@ -1,5 +1,6 @@
 import db from "../db/db";
 import ConvertCardModel from "../schemaModels/convertCardModel";
+import PackageModel from "../schemaModels/package";
 
 export const createConverCardService = async(newConverCard={}) =>{
     try {
@@ -42,9 +43,10 @@ export const updateConverCardByUserIdService = async(user_id,updateConvertCardIn
 
 // get a convert card by user_id
 export const getConvertCardByUserIdService = async(user_id) =>{
+    
     try {
         await db.connect();
-        const result =  await ConvertCardModel.findOne({user_id}).lean();
+        const result =  await ConvertCardModel.findOne({user_id}).populate({path:'package_id',select:'name languages fileTypes'}).lean();
         await db.disconnect();
         return result
     } catch (error) {

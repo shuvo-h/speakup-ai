@@ -40,6 +40,7 @@ async function getStripeInfoCtl(req, res,next) {
           
           const newConvertCardInfo = {
             user_id: decodedUser._id,
+            package_id: req.body?.package_id,
             package_start: userPaymentSlip.package_start,
             package_expire: userPaymentSlip.package_expire,
             card_status: 'active',
