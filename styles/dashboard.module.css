@@ -127,9 +127,9 @@
     font-size: 1rem;
 }
 .textInputArea textarea:focus{
-    outline: 1px dashed yellowgreen;
+    outline: 1px dashed #9acd32;
 }
-.textInputArea button{
+.textInputArea > button{
     border: none;
     display: block;
     margin: 1rem auto;
@@ -138,7 +138,7 @@
     font-weight: 700;
     background-color: lightskyblue;
 }
-.textInputArea button:hover{
+.textInputArea > button:hover{
     background-color: rgb(58, 144, 197);
     cursor: pointer;
     color: #fff;

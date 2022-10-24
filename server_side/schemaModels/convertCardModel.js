@@ -62,10 +62,10 @@ const ConvertCardSchema = new mongoose.Schema(
             default:0,
         },
         req_per_day_reamining: {
-            next_date:{
+            today:{
                 type: Date,
                 required: [true,"Date of next day is required to track remaining request per day."],
-                default: new Date(new Date().setDate(new Date().getDate()+1)).toISOString().split("T")[0], // next day
+                default: new Date().toISOString().split("T")[0], // next day
             },
             req_reamining:{
                 type: Number,

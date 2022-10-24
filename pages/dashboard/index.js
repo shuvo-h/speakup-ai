@@ -6,6 +6,8 @@ import useAuthFromCookie from '../../client_side/hooks/useAuthFromCookie';
 import dashST from "../../styles/dashboard.module.css";
 import NavLink from 'next/link'
 import { gttActiveLanguages } from '../../server_side/utils/activeLanguageGttUnOfficial';
+import AudioPlayer from '../../client_side/components/dashboard/AudioPlayer';
+import { downloadBlobToAudio } from '../../client_side/utils/fileSystem/downloadFile';
 
 const DashboardHome = () => {
     const {user,isUserLoading} = useAuthFromCookie();
@@ -14,12 +16,13 @@ const DashboardHome = () => {
     const [convertCard,setConvertCard] = useState({});
     const [convertCardErrLoad,setConvertCardErrLoad] = useState({isLoading:true,msg:""});
     const [languageCode,setLanguageCode] = useState("");
-    const [audioFileType,setAudioFileType] = useState({})
+    const [audioFileType,setAudioFileType] = useState({});
+    const [audioFile,setAudioFile] = useState("");
+    const [audioConverting,setAudioConverting] = useState(false);
 
     // references
     const textAreaRef = useRef();
 
-    console.log(convertCard,convertCardErrLoad);
     // load user convert card info
     useEffect(()=>{
         const abortHandler = new AbortController();
@@ -59,6 +62,56 @@ const DashboardHome = () => {
         return () => abortHandler.abort()
     },[user._id])
 
+    // convert the audio
+    const handleAudioConvert = () =>{
+        setAudioFile("");
+        setAudioConverting(true);
+        const textForAudio = textAreaRef.current.value;
+        if (!textForAudio || !languageCode) {
+            console.log(textForAudio,languageCode);
+            setAudioConverting(false);
+            alert("Text and Language are required!");
+            return;
+        }
+        if (!user.token || !convertCard._id) {
+            alert("Authentication and Card id are required!");
+            return;
+        }
+        fetch(`/api/v1/audio/convert?convertCard_id=${convertCard._id}`,{
+            method:"POST",
+            headers:{
+                "content-type":"application/json",
+                "authorization":`Bearer ${user.token}`
+            },
+            body:JSON.stringify({text:textForAudio,lang:languageCode})
+        })
+        .then(res=>res.blob())
+        .then(data=>{
+            console.log(data);
+            // const file = new File([data],'testAudio.mp3',{type:"audio/mpeg"})
+            // const file = new File([data],`testAudio.${audioFileType.extension}`,{type:audioFileType.mime})
+            const file = new File([data],`testAudio`,{type:audioFileType.mime,created:"SpeakUP-AI"})
+            console.log(file);
+            const reader = new FileReader();
+            reader.onload = function(e){
+                const audUrl = e.target.result;
+                setAudioFile(audUrl);
+                // console.log(audUrl);
+            };
+            reader.readAsDataURL(file);
+            setAudioConverting(false);
+        }).catch(err=>{
+            console.log(err);
+            setAudioConverting(false);
+            alert(err.message??"Error occured to convert the audio")
+        })
+    }
+
+    // chear the fields to prepare for another new convert process
+    const anotherConverthandler = () =>{
+        setAudioFile("");
+        textAreaRef.current.value = "";
+    }
     // resize the textarea height automatically
     function auto_grow() {
         textAreaRef.current.style.height = "0px";
@@ -70,10 +123,26 @@ const DashboardHome = () => {
             <PrivateComponent>
                 <section className={`d-flex justifyBetween ${dashST.card_fileInfo_container}`}>
                     <div className={`p-7 ${dashST.textInputArea}`}>
-                        <h3>Convert your text into audio</h3>
+                        <h3 className={`text-center`}>Convert Your Text into Audio</h3>
                         <textarea className={`p-6`} onInput={auto_grow} ref={textAreaRef} name="" id="" placeholder='Write or paste your text here'></textarea>
-                        <h2>Audio Player Here</h2>
-                        <button >Convert to .{audioFileType.extension}</button>:<button >Download .{audioFileType.extension}</button>
+                        <div className='m-7'>
+                            {
+                                audioFile && <AudioPlayer audioFileDataURl={audioFile}></AudioPlayer>
+                            }
+                        </div>
+                        {/* loading or not -> audio has or not */}
+
+                        {
+                            audioConverting && <p>Converting............</p>
+                        }
+                        {
+                            !   audioFile 
+                            ?   <button onClick={handleAudioConvert}>Convert to .{audioFileType.extension}</button>
+                            :   <button onClick={()=>downloadBlobToAudio(audioFile,`SpeakUP-AI_${Date.now()}`)}>Download .{audioFileType.extension}</button>
+                        }
+                        {
+                            audioFile &&  <button onClick={anotherConverthandler}>Convert Another Text</button>
+                        }
                     </div>
                     <aside>
                         {/* show convert card based on loading, error and successfull data available */}

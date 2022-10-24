@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import audioST from "./audioplayer.module.css";
+import { BackwardIcon, ForwardIcon, PauseIcon, PlayIcon } from './playerIcons';
 
-const AudioPlayer = () => {
+const AudioPlayer = ({audioFileDataURl}) => {
     // states 
     const [isPlaying,setIsPlaying] = useState(false);
     const [duration,setDuration] = useState(0);
@@ -24,13 +25,20 @@ const AudioPlayer = () => {
         const seconds = Math.floor(audioRef.current.duration);
         setDuration(seconds);
         audioProgressbarRef.current.max = seconds;
+        // set the volume as middle
+        audioRef.current.volume = 0.5;
+        volumeRef.current.value = 0.5;
     }
 
     // stop the player when audio ended
     useEffect(() => {
-        if (currentTime == duration) {
-          togglePlayPause();
-          timeTravel(0);
+        console.log(typeof Number(currentTime) , typeof Number(duration));
+        if (Number(currentTime) === Number(duration)) {
+            // wait 1 sec to stop the player and set the current duration at start point as 0
+            setTimeout(()=>{
+                togglePlayPause();
+                timeTravel(0);
+            },700)
         }
     }, [currentTime]);
 
@@ -60,14 +68,18 @@ const AudioPlayer = () => {
         }
     }
     const whilePlayingFn = () =>{
-        audioProgressbarRef.current.value = audioRef.current.currentTime;
+        if (audioProgressbarRef.current) {
+            audioProgressbarRef.current.value = audioRef.current?.currentTime;
+        }
         changePlayerCurrentTime();
         animationRef.current = requestAnimationFrame(whilePlayingFn);
     }
     
     const changePlayerCurrentTime = () =>{
-        audioProgressbarRef.current.style.setProperty('--seek-before-width',`${audioProgressbarRef.current.value/duration *100}%`);
-        setCurrentTime(audioProgressbarRef.current.value);
+        if (audioProgressbarRef.current) {
+            audioProgressbarRef.current.style.setProperty('--seek-before-width',`${audioProgressbarRef.current.value/duration *100}%`);
+            setCurrentTime(audioProgressbarRef.current.value);
+        }
     }
 
     const backThirtySec = () =>{
@@ -85,6 +97,7 @@ const AudioPlayer = () => {
 
     const audioVolumeHandler = () =>{
         audioRef.current.volume = volumeRef.current.value;
+        console.log(volumeRef.current.value);
     }
     const audioSpeedHandler = (speedX) =>{
         audioRef.current.playbackRate = parseFloat(speedX);
@@ -92,18 +105,19 @@ const AudioPlayer = () => {
 
     return (
         <div>
-            <h1>Cusom My Audio Player</h1>
-            <div className={audioST.audioPlayer}>
+            {/* <h1>Cusom My Audio Player</h1> */}
+            <div className={audioST.audioPlayer} style={{backgroundImage: audioRef.current?.paused ? "" :"var(--playing_bg)"}}>
                 <audio 
                     ref={audioRef}
-                    src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3"
+                    // src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3"
+                    src={audioFileDataURl??""}
                     // controls
                     preload="metadata"
                     onLoadedMetadata={onLoadMetaDataHandler}
                 ></audio>
-                <button className={audioST.forwardBackward} onClick={backThirtySec}>&lt; 30</button>
-                <button className={audioST.playPause} onClick={togglePlayPause}>{isPlaying? "play":"pause"}</button>
-                <button className={audioST.forwardBackward} onClick={forwardThirtySec}>&gt; 30</button>
+                <button className={audioST.forwardBackward} onClick={backThirtySec}> <BackwardIcon width={35}  height={35} /> </button>
+                <button className={audioST.playPause} onClick={togglePlayPause}>{isPlaying? <PlayIcon width={35} height={35} /> : <PauseIcon width={40} height={40} /> }</button>
+                <button className={audioST.forwardBackward} onClick={forwardThirtySec}> <ForwardIcon width={35}  height={35} /></button>
 
                 {/* current time  */}
                 <div className={audioST.currentTime}>{calculateAudioTime(currentTime)}</div>
@@ -115,14 +129,17 @@ const AudioPlayer = () => {
 
                 {/* Duration  */}
                 <div className={audioST.duration}>{duration && !isNaN(duration) && calculateAudioTime(duration)}</div>
-
+                
+                {/* volume control  */}
                 <div>
-                    <input ref={volumeRef} type="range" onChange={audioVolumeHandler} min={0} max={1} step={0.01}/>
+                    {/* <input className={audioST.volume} ref={volumeRef} type="range" onChange={audioVolumeHandler} min={0} max={1} step={0.01}/> */}
+                    <input className={audioST.volume} ref={volumeRef} type="range" onChange={audioVolumeHandler} min={0} max={1} step={0.01}/>
                 </div>
 
+                {/* play speed control  */}
                 <div>
                     {
-                        [0.25,0.50,0.75,1,1.25,1.50,1.75,2].map(playSpeed =><p style={{margin:0}} onClick={()=>audioSpeedHandler(playSpeed)} key={playSpeed}>{playSpeed}x</p>)
+                        // [0.25,0.50,0.75,1,1.25,1.50,1.75,2].map(playSpeed =><p style={{margin:0}} onClick={()=>audioSpeedHandler(playSpeed)} key={playSpeed}>{playSpeed}x</p>)
                     }
                 </div>
             </div>
