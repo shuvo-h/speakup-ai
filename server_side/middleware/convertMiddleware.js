@@ -1,4 +1,7 @@
+import { freeCharacterLimit } from "../../client_side/staticData/audioConvertData";
 import { getConvertCardbyIdService, updateConverCardByIdService } from "../services/convertCardServices";
+import { createNewIpUserService, getTestIpUserByIpAddressService, updateTestIpUserByIdService } from "../services/testIpUserService";
+import { gttActiveLanguages } from "../utils/activeLanguageGttUnOfficial";
 
 export const checkCardLimit = async(req,res,next)=>{
     try {
@@ -12,15 +15,27 @@ export const checkCardLimit = async(req,res,next)=>{
                 if (convertCard?.package_id?.languages?.includes(lang)) {
                     // check if package is expirted
                     const isNotExpire = new Date(convertCard.package_expire) >= new Date();
-                    if ((convertCard?.card_status === 'active') && convertCard?.package_expire && isNotExpire) {
+                    // console.log(isNotExpire,"isNotExpire");
+                    if ((convertCard?.card_status === 'active') && isNotExpire) {
                         // card is not expired, check req limit
                         const isToday = new Date(convertCard.req_per_day_reamining.today).toISOString().split("T")[0] === new Date().toISOString().split("T")[0];
+                        
+                        // if it is not today, update the card with today date and set the remaining req per day as default, and change isToday as true
+                        if (!isToday) {
+                            const toDay = new Date().toISOString().split("T")[0]
+                            const todayUpdateDoc = {"req_per_day_reamining.today":toDay, "req_per_day_reamining.req_reamining": convertCard.req_per_day}
+                            const perReqRemaining = await updateConverCardByIdService(convertCard_id,todayUpdateDoc)
+                            if (perReqRemaining._id) {
+                                isToday = true;
+                            }
+                        }
                         if ( isToday && convertCard.req_per_day_reamining.req_reamining > 0) {
                             // accept the request and check the character limit per request
                             const textLength = text.length;
                             if (convertCard.character_limit_per_req >= textLength) {
                                 // text length is in limit, check total character for this package
                                 if (convertCard.character_limit_reamining >= textLength) {
+                                    console.log("Going next");
                                     next();
                                 }else{
                                     res.status(403).json({error:true,message:`You reached your maximum character for this month. Please renew your package! or if you are using a yearly package, wait for the next month to be auto renual`})
@@ -54,5 +69,74 @@ export const checkCardLimit = async(req,res,next)=>{
     } catch (error) {
         console.log(error);
         res.status(403).json({error:true,message:error.message})
+    }
+}
+
+
+
+// check limit for each requester ip address
+
+export const checkRequestIpLimit = async(req,res,next) =>{
+    try {
+        const {text,lang} = req.body;
+        // first check the language is in list
+        const isRightLang = gttActiveLanguages.find(el=>el.code === lang);
+        if (!isRightLang?.code) {
+            throw new Error("Unsupported language")
+        }
+
+
+        const ip = req.headers['x-forwarded-for'] || 
+                    req.connection.remoteAddress || 
+                    req.socket.remoteAddress ||
+                    req.connection.socket.remoteAddress;
+
+        // check number of characters this ip has converted today
+        if (ip) {
+            // find ip from DB if exist
+            const existIpUser = await getTestIpUserByIpAddressService(ip);
+            if (existIpUser) {
+                // check if the limit is crossed for today
+                const isToday = new Date(existIpUser.today).toISOString().split("T")[0] === new Date().toISOString().split("T")[0];
+                const totalLimit = existIpUser.characters_used + text.length;
+                if (isToday) {
+                    //  go next to check text lenth with limit
+                    if (totalLimit <= freeCharacterLimit) {
+                        req.ipDoc_id = existIpUser._id;
+                        next();
+                    }else{
+                        throw new Error("You reached your daily free limit!");
+                    }
+                }else{
+                    // update the today date and go next to check text lenth with limit
+                    if (text.length <= freeCharacterLimit) {
+                        const updatedTodayIp = await updateTestIpUserByIdService(existIpUser._id,{today: new Date().toISOString().split("T")[0]})
+                        req.ipDoc_id = existIpUser._id;
+                        next();
+                    }else{
+                        throw new Error(`You are allowed only ${freeCharacterLimit} characters to convert daily`);
+                    }
+                }
+            }else{
+                // insert as a new ip address
+                const newIpUser = await createNewIpUserService(ip);
+                if (newIpUser._id) {
+                    // check the text length
+                    if (text.length <= freeCharacterLimit) {
+                        req.ipDoc_id = newIpUser._id;
+                        next();
+                    }else{
+                        throw new Error("Characters limit exceeded!");
+                    }
+                }else{
+                    throw new Error(newIpUser.message ?? "Failed to create record for the new user");
+                }
+            }
+        }else{
+            throw new Error("Could't recognize the user!")
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error:true,message:error.message})
     }
 }

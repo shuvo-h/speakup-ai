@@ -5,6 +5,7 @@ import { addInStateObj } from '../../client_side/utils/reactUtils/stateSetter';
 import { gttActiveLanguages } from '../../server_side/utils/activeLanguageGttUnOfficial';
 import useAuthFromCookie from '../../client_side/hooks/useAuthFromCookie';
 import AudioPlayer from '../../client_side/components/dashboard/AudioPlayer';
+import NavLink from "next/link";
 
 const dashboard_MetaInfo = {
     title: "Dashboard/SpeakUp-AI",
@@ -52,7 +53,9 @@ const Order = () => {
         })
     }
 
-
+    if (true) {
+        return <NavLink href={"/dashboard"} passHref={true}><a>Go toDahsboard</a></NavLink>
+    }
     if (isUserLoading) {return <div><h2>Loading..........</h2></div>}
     if (!user?.token) {router.push({pathname:"/login"});}
     return (

@@ -39,6 +39,7 @@
 /* color styles  */
 .color-primary-dark{color: var(--whiteDark);}
 .color-primary-light{color: var(--whiteLight);}
+.color-danger{color: #f81818;}
 
 /* font styles  */
 .f-1{font-size: 0.5rem;}

@@ -1,6 +1,7 @@
 
 /* layout styles  */
 .d-flex{display: flex;}
+.d-block{display: block;}
 .flex-column{flex-direction: column;}
 .justifyCenter{justify-content: center;}
 .justifyBetween{justify-content: space-between;}

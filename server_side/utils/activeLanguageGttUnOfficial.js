@@ -1,3 +1,4 @@
+
 export const gttActiveLanguages = [
     {code:'af', lang : 'Afrikaans'},
     {code:'sq', lang : 'Albanian'},

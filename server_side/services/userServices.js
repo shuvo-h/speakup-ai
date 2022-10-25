@@ -24,6 +24,7 @@ export const getUserService = async(email) =>{
         return {error: true,message: error.message}
     }
 }
+
 export const getUserByIdService = async(userId,fields={}) =>{
     try {
         await db.connect();

@@ -1,129 +1,259 @@
-.container {
-  padding: 0 2rem;
-}
-
-.main {
-  min-height: 100vh;
-  padding: 4rem 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.footer {
-  display: flex;
-  flex: 1;
-  padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
-  justify-content: center;
-  align-items: center;
-}
-
-.footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-}
-
-.title a {
-  color: #0070f3;
-  text-decoration: none;
-}
-
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
-}
-
-.title {
+.homeContainer{
   margin: 0;
-  line-height: 1.15;
-  font-size: 4rem;
 }
 
-.title,
-.description {
+.bannerContainer{
+  width: 100%;
+  height: 35rem;
+  background: no-repeat 100% url("../client_side/assets/backgrounds/home-banner-bg.jpg");
+  
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  align-items: center;
+  position: relative;
+  margin-bottom: 15rem;
+}
+.bannerText{
+  margin: 5rem;
+  text-align: center;
+  color: rgb(252, 253, 251);
+}
+.bannerText h1{
+  font-size: 2.5rem;
+}
+.bannerText p{
+  font-size: x-large;
+}
+.freeConvertContainer{
+  position: absolute;
+  width: 50rem;
+  background-color: rgb(235, 226, 226);
+  box-shadow: 0 0 5px 1px rgb(124, 167, 68);
+  padding: 2rem 2rem;
+  left: 0;
+  right: 0;
+  bottom: -11rem; /* match it with next section by adding same margin with it's parent .bannerContainer{}*/
+  margin: auto;
+  border-radius: 0.6rem;
+}
+
+.freeConvertContainer textarea{
+  width: 98%;
+  border-radius: 0.3rem;
+  padding: 0.5rem;
+  min-height: 12rem;
+  resize: none;
+}
+.freeConvertContainer textarea:focus{
+  outline: 1px dashed rgb(98, 98, 139);
+}
+
+/* style text area scrollbar  start*/
+/* styel scrollbar for firefox  */
+.freeConvertContainer textarea {
+  scrollbar-width: thin;          /* "auto" or "thin" */
+  scrollbar-color: blue orange;   /* scroll thumb and track */
+}
+
+/* for Chrome, Edge, and Safari */
+.freeConvertContainer textarea::-webkit-scrollbar {
+  width: 5px;               /* width of the entire scrollbar */
+}
+.freeConvertContainer textarea::-webkit-scrollbar-track {
+  background: orange;        /* color of the tracking area */
+}
+.freeConvertContainer textarea::-webkit-scrollbar-thumb {
+  background-color: blue;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 1px solid orange;  /* creates padding around scroll thumb */
+}
+
+
+/* style text area scrollbar  end*/
+.textareStatusMsg{
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  color: #4b4a4a;
+  font-size: 14px;
+}
+
+.convertControl{
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  justify-items: center;
+}
+.convertControl select{
+  border: none;
+  border-radius: 4px;
+  padding: 8px 14px;
+}
+.convertControl button{
+  border: none;
+  border-radius: 4px;
+  font-weight: 700;
+  background-color: lightblue;
+  padding: 8px 14px;
+}
+.convertControl button:hover{
+  background-color: rgb(147, 205, 224);
+  cursor: pointer;
+  color: blue;
+}
+
+/* Home Page Common styles */
+.subTitle {
+  font-size: xx-large;
+  margin: 1rem auto;
+}
+
+/* step card styles  start */
+.stepCardContainer{
+  margin: 4rem 10%;
+}
+.stepCardContainer h1{
+  /* font-size: xx-large;
+  margin: 1rem auto; */
+}
+.stepCards{
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 1rem;
+}
+.stepCard{
+  /* width: 380px; */
+  padding: 1rem;
+  box-shadow: inset 0 0 15px 1px rgb(96, 100, 139);
+  border-radius: 10px;
+}
+/* step card styles  end */
+
+/* supported language styles  start */
+.langContainer{
+  background-color: rgb(48, 52, 105);
+  padding-top: 3rem;
+  padding-bottom: 5rem;
+}
+.langWrapper{
+  margin: auto 10%;
+  background-color: rgb(48, 52, 105);
+}
+.langCards{
+  display: flex;
+  flex-wrap: wrap;
+}
+.langCard{
+  padding: 8px 14px;
+  border: none;
+  border-radius: 2px;
+  box-shadow: 3px 3px rgb(57, 207, 57);
+  width: 200px;
+
+}
+/* supported language styles end */
+
+/* short add style start  */
+.sortSiteAdd{
+  margin: 8rem 10%;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 2rem;
+  align-items: center;
+  height: 25rem;
+}
+.sortSiteAdd h1{
+  font-size: 3rem;
   text-align: center;
 }
+.sortSiteAddMedia{
+  height: 100%;
+  background: no-repeat 100%  url("../client_side/assets/backgrounds/sort-site-add.png");
+  background-size: contain;
+  background-position: center;
+  width: 100%;
 
-.description {
-  margin: 4rem 0;
-  line-height: 1.5;
-  font-size: 1.5rem;
 }
+/* short add style end */
 
-.code {
-  background: #fafafa;
-  border-radius: 5px;
-  padding: 0.75rem;
-  font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
+/* hints signup start */
+.hintsSignnUp{
+  margin: 8rem 10%;
+  flex-direction: column;
 }
-
-.grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 800px;
+.hintsSignnUp h1{
+  font-size: 3rem;
+  text-transform: capitalize;
+  max-width: 50rem;
+  margin: 2rem auto;
 }
-
-.card {
-  margin: 1rem;
-  padding: 1.5rem;
-  text-align: left;
-  color: inherit;
+.hintsSignnUp a{
+  display: block;
+  width: max-content;
+  margin: 2rem auto;
+  padding: 8px 14px;
+  font-weight: 700;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  background-image: linear-gradient(to right,rgb(42, 164, 173),rgb(66, 141, 106));
+  color: rgb(135, 236, 76);
   text-decoration: none;
-  border: 1px solid #eaeaea;
+  transition: all 0.3s ;
+}
+.hintsSignnUp a:hover{
+  background-image: linear-gradient(to right,rgb(66, 141, 106),rgb(42, 164, 173));
+  
+}
+
+.hireProContainer{
+  /* height: 20rem; */
+  background: no-repeat 100%  url("../client_side/assets/backgrounds/pro-back-bg.jpg");
+  background-size: cover;
+  background-position: center;
+}
+.hireProWrapper{
+  margin: auto 10%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.profiles{
+  
+}
+.profile{
+  border: 1px solid rgb(150, 152, 230);
   border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 300px;
+  width: 250px;
+  padding: 30px 18px;
+  text-align: center;
+  background-color: rgb(78, 68, 170);
+  box-shadow: inset 0 0 10px 1px rgb(16, 3, 134);
 }
-
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+.profile img{
+  border-radius: 50%;
 }
-
-.card h2 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
+.profile h2{
+  margin-bottom: 0;
 }
-
-.card p {
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
+.profilePosition{
+  margin-top: 4px;
 }
-
-.logo {
-  height: 1em;
-  margin-left: 0.5rem;
+.profile button{
+  border: none;
+  font-weight: 700;
+  padding: 8px 15px;
+  border-radius: 3px;
+  font-style: italic;
+  gap: 1rem;
+  margin: 1rem auto;
 }
-
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
+.profile button svg{
+  /* margin-left: 1rem; */
 }
-
-@media (prefers-color-scheme: dark) {
-  .card,
-  .footer {
-    border-color: #222;
-  }
-  .code {
-    background: #111;
-  }
-  .logo img {
-    filter: invert(1);
-  }
+.profile a{
+  text-decoration: none;
+  color: rgb(233, 232, 231);
+}
+.profileIcons{
+  gap: 1rem;
 }

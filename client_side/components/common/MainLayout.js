@@ -6,7 +6,7 @@ import HeadCustom from './HeadCustom';
 import NavCommon from './NavCommon';
 
 
-const MainLayout = ({metaInfo,children}) => {
+const MainLayout = ({metaInfo,mainLayoutClassName="",children}) => {
     useEffect(()=>{
         const classSetterFn = (e) =>{
             const navElement = document.querySelector('.navScrollTracker');
@@ -28,7 +28,7 @@ const MainLayout = ({metaInfo,children}) => {
             <header>
                 <NavCommon></NavCommon>
             </header>
-            <div className={`${mainLtST.main_Layout_wrapper}`}>
+            <div className={`${mainLtST.main_Layout_wrapper} ${mainLayoutClassName}`}>
                 <main className={`${mainLtST.main_Layout_body_middle}`}>
                     {children}
                 </main>

@@ -29,7 +29,7 @@ const ConvertCard = ({user,convertCard}) => {
             </div>
             <div className={`d-flex justifyBetween ${dashST.convert_card_info}`}>
                 <p className={`m-2`}>Total Sizes(MB):</p>
-                <output className={`m-2`}>{convertCard.size}</output>
+                <output className={`m-2`}>{convertCard.size?.toFixed(2)}</output>
             </div>
 
             <div className={`d-flex justifyBetween ${dashST.convert_card_info}`}>

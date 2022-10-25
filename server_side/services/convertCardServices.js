@@ -81,11 +81,23 @@ export const getConvertCardbyIdService = async(card_id) =>{
     }
 }
 // get a convert card by user_id
-export const updateCardAfterConvertService = async(card_id) =>{
+export const updateCardAfterConvertService = async(card_id,{size=0,textLength=0}) =>{
     
     try {
         await db.connect();
-        const result =  await ConvertCardModel.findOne({_id:card_id}).populate({path:'package_id',select:'name languages fileTypes'}).lean();
+        // const result =  await ConvertCardModel.findOne({_id:card_id}).populate({path:'package_id',select:'name languages fileTypes'}).lean();
+        const result =  await ConvertCardModel.updateOne(
+            {_id:card_id},
+            {
+                $inc:{
+                    "req_per_day_reamining.req_reamining": -1,
+                    size,
+                    file_count: 1,
+                    "character_limit_reamining": -textLength
+                },
+            },
+            {runValidators: true}
+        )
         await db.disconnect();
         return result
     } catch (error) {

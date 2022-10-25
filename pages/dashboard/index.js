@@ -19,6 +19,7 @@ const DashboardHome = () => {
     const [audioFileType,setAudioFileType] = useState({});
     const [audioFile,setAudioFile] = useState("");
     const [audioConverting,setAudioConverting] = useState(false);
+    const [audioConvertErr,setAudioConvertErr] = useState("");
 
     // references
     const textAreaRef = useRef();
@@ -64,19 +65,50 @@ const DashboardHome = () => {
 
     // convert the audio
     const handleAudioConvert = () =>{
-        setAudioFile("");
-        setAudioConverting(true);
+        // check everything with card to get direct blob response
+        // is card active
+        if (convertCard.card_status !== 'active') {
+            setAudioConvertErr(`Your card status is ${convertCard.card_status}`);
+            return;
+        }
+        // is request limit exceed for today
+        const isToday = new Date(convertCard.req_per_day_reamining?.today).toISOString().split("T")[0] === new Date().toISOString().split("T")[0];
+        if ( isToday && convertCard.req_per_day_reamining.req_reamining <= 0) {
+            setAudioConvertErr(`You have reached the maximum convet request for today. Please wait for next day!`);
+            return;
+        }
+
+        // check for character limit for this request
         const textForAudio = textAreaRef.current.value;
+        if (convertCard.character_limit_per_req < textForAudio.length) {
+            setAudioConvertErr(`Convert is limited upto ${convertCard.character_limit_per_req} characters`);
+            return;
+        }
+        // check for character limit remaining
+        if (convertCard.character_limit_reamining < textForAudio.length) {
+            setAudioConvertErr(`Your package limit has finished. Please purchase a new package or if you are a yearly subscriber, please wait until next month to renew your package.`);
+            return;
+        }
+
+        // check for language code and text to convert available
+        
         if (!textForAudio || !languageCode) {
-            console.log(textForAudio,languageCode);
             setAudioConverting(false);
-            alert("Text and Language are required!");
+            setAudioConvertErr("Text and Language are required!");
             return;
         }
         if (!user.token || !convertCard._id) {
-            alert("Authentication and Card id are required!");
+            setAudioConvertErr("Authentication and Card id are required!");
             return;
         }
+
+
+        // clear all the states
+        setAudioFile("");
+        setAudioConverting(true);
+        setAudioConvertErr("");
+
+        // everything lookg like okay! now go for convert
         fetch(`/api/v1/audio/convert?convertCard_id=${convertCard._id}`,{
             method:"POST",
             headers:{
@@ -85,26 +117,46 @@ const DashboardHome = () => {
             },
             body:JSON.stringify({text:textForAudio,lang:languageCode})
         })
-        .then(res=>res.blob())
+        .then(res=>{
+            if (res.status<300) {
+                return res.blob()
+            }else{
+                return res.json()
+            }
+        })
         .then(data=>{
-            console.log(data);
-            // const file = new File([data],'testAudio.mp3',{type:"audio/mpeg"})
-            // const file = new File([data],`testAudio.${audioFileType.extension}`,{type:audioFileType.mime})
-            const file = new File([data],`testAudio`,{type:audioFileType.mime,created:"SpeakUP-AI"})
-            console.log(file);
-            const reader = new FileReader();
-            reader.onload = function(e){
-                const audUrl = e.target.result;
-                setAudioFile(audUrl);
-                // console.log(audUrl);
-            };
-            reader.readAsDataURL(file);
+            // console.log(data);
+            if (data.error) {
+                // it is an error, show the message
+                setAudioConvertErr(data.message??"Failed to convert the audio.")
+            }else{
+                // const file = new File([data],'testAudio.mp3',{type:"audio/mpeg"})
+                const file = new File([data],`testAudio`,{type:audioFileType.mime,created:"SpeakUP-AI"})
+                // console.log(file);
+                const reader = new FileReader();
+                reader.onload = function(e){
+                    const audUrl = e.target.result;
+                    setAudioFile(audUrl);
+                };
+                reader.readAsDataURL(file);
+                // update the card status limit
+                setConvertCard(pre=>{
+                    const temp = {...pre}
+                    const reaminingReq = temp.req_per_day_reamining.req_reamining > 0 ? temp.req_per_day_reamining.req_reamining - 1 : 0;
+                    temp.req_per_day_reamining = {...temp.req_per_day_reamining,req_reamining:reaminingReq}
+                    temp.file_count = temp.file_count + 1;
+                    temp.size = temp.size + file.size/(1024*1024);
+                    temp.character_limit_reamining = temp.character_limit_reamining - textForAudio.length;
+                    return temp;
+                })
+            }
             setAudioConverting(false);
         }).catch(err=>{
             console.log(err);
             setAudioConverting(false);
-            alert(err.message??"Error occured to convert the audio")
+            setAudioConvertErr(err.message??"Error occured to convert the audio")
         })
+        
     }
 
     // chear the fields to prepare for another new convert process
@@ -118,13 +170,16 @@ const DashboardHome = () => {
         const scrollHeight = textAreaRef.current.scrollHeight;
         textAreaRef.current.style.height = scrollHeight + "px";
     }
+    const [charCount,setCharCount] = useState(0);
+
     return (
         <MainLayout>
             <PrivateComponent>
                 <section className={`d-flex justifyBetween ${dashST.card_fileInfo_container}`}>
                     <div className={`p-7 ${dashST.textInputArea}`}>
                         <h3 className={`text-center`}>Convert Your Text into Audio</h3>
-                        <textarea className={`p-6`} onInput={auto_grow} ref={textAreaRef} name="" id="" placeholder='Write or paste your text here'></textarea>
+                        <textarea className={`p-6`} onInput={auto_grow} ref={textAreaRef} onChange={(e)=> setCharCount(e.target.value.length)} name="" id="" placeholder='Write or paste your text here'></textarea>
+                        <p style={{textAlign:"right",color:convertCard.character_limit_per_req < charCount ? "red" : "#fff"}}>{charCount}/{convertCard.character_limit_per_req} characters</p>
                         <div className='m-7'>
                             {
                                 audioFile && <AudioPlayer audioFileDataURl={audioFile}></AudioPlayer>
@@ -135,6 +190,8 @@ const DashboardHome = () => {
                         {
                             audioConverting && <p>Converting............</p>
                         }
+                        {/* show error message during converting  */}
+                        {audioConvertErr && <p style={{color:"red", textAlign:"center"}}>{audioConvertErr}</p>}
                         {
                             !   audioFile 
                             ?   <button onClick={handleAudioConvert}>Convert to .{audioFileType.extension}</button>
