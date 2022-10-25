@@ -54,6 +54,7 @@ export const HintsToSignUp = () =>{
 }
 
 import shuvoImg from "../../assets/backgrounds/shuvo-haldar.png";
+import biddrupImg from "../../assets/backgrounds/biddrup-img.png";
 import { EmailIcon, FBicon, LinkedINIcon, TwitterIcon, YoutubeIcon } from '../../utils/Icons/social_contact_icons';
 const proProfiles = [
     {
@@ -69,6 +70,19 @@ const proProfiles = [
             { icon: <YoutubeIcon width={30} height={30} />, url:""},
         ]
     },
+    {
+        img: biddrupImg,
+        name:"Biddrup Kumar Mallick",
+        email:"biddrup3@gmail.com",
+        position:"Website Analysist",
+        description:"A professional website analysist working with SEO and site performance improvement over ten year.",
+        socials:[
+            { icon: <FBicon width={30} height={30} />, url:""},
+            { icon: <TwitterIcon width={30} height={30} />, url:""},
+            { icon: <LinkedINIcon width={30} height={30} />, url:""},
+            { icon: <YoutubeIcon width={30} height={30} />, url:""},
+        ]
+    },
 ]
 
 export const HireAPro = () =>{
@@ -76,19 +90,20 @@ export const HireAPro = () =>{
     return (
         <div className={`${homeST.hireProContainer}`}>
             <div className={`${homeST.hireProWrapper}`}>
-                <div>
-                    <h1>Hire A Pro</h1>
-                    <p>Need help creating your own AI tools?</p>
-                    <p>Talk to our Pro developers and analysts and get a quote for your own tools.</p>
+                <div className={`${homeST.hireProDescription}`}>
+                    <h1 className={`text-center`}>Hire A Pro</h1>
+                    <p className={`text-center`}>Need help creating your own AI tools?</p>
+                    <p className={`text-center`}>Talk to our Pro developers and analysts and get a quote for your own tools.</p>
                 </div>
                 <div className={`${homeST.profiles}`}>
                     {
                         proProfiles.map(profile => <div className={`${homeST.profile}`} key={profile.email}>
-                            <Image src={profile.img} width={100} height={100} alt={profile.name}></Image>
+                            <Image src={profile.img} width={120} height={120} alt={profile.name}></Image>
                             <h2>{profile.name}</h2>
                             <p className={`${homeST.profilePosition}`}>{profile.position}</p>
                             <p>{profile.description}</p>
-                            <div><button className='d-flex justifyCenter alignCenter'><EmailIcon width={20} /> {profile.email}</button></div>
+                            {/* <div><button className='d-flex justifyCenter alignCenter'><EmailIcon width={20} /> {profile.email}</button></div> */}
+                            <div><a className={`d-flex justifyCenter alignCenter ${homeST.profileEmail}`} href={`mailto: ${profile.email}`}><EmailIcon width={20} />{profile.email}</a></div>
                             <div className={`d-flex justifyCenter ${homeST.profileIcons}`}>
                                 {
                                     profile.socials.map(social => <NavLink href={social.url} key={social.url}><a>{social.icon}</a></NavLink>)

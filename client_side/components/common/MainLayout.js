@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import NavLink from 'next/link';
 import mainLtST from "./MainLayout.module.css" 
 
 import React, { useEffect } from 'react';
@@ -33,8 +34,14 @@ const MainLayout = ({metaInfo,mainLayoutClassName="",children}) => {
                     {children}
                 </main>
 
-                <footer>
-                    <p className='m-0 p-5 text-center'>Copyright © 2020 All Rights Reserved</p>
+                <footer className={`${mainLtST.footerContainer}`}>
+                    <h1>SpeakUp-AI</h1>
+                    <p className='m-0 p-5 text-center'>Copyright &copy; {new Date().getFullYear()} SpeakUP-AI Reserved</p>
+                    <div>
+                        <NavLink href={""}><a>Privacy</a></NavLink>
+                        <NavLink href={""}><a>Terms</a></NavLink>
+                        <NavLink href={""}><a>Contact</a></NavLink>
+                    </div>
                 </footer>
             </div>
         </div>
