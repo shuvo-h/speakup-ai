@@ -6,6 +6,7 @@ import { envCLientInfo } from "../../../utils/envCLientInitializer";
 import stripeST from "./stripe.module.css";
 import card_skeleton from "../../../assets/card/credit_card_skeleton.gif"
 import Image from "next/image";
+import { envInfo } from "../../../../server_side/utils/envInitializer";
 
 
 // Make sure to call loadStripe outside of a component’s render to avoid
@@ -32,7 +33,7 @@ const StripeElement = ({user,amount,duration,pay_card,package_id}) => {
     // use controller to cancel async operation if dependency changes
     const abortController = new AbortController()
     // Create PaymentIntent as soon as the page loads
-      fetch("/api/v1/payment/methods/stripe", {
+      fetch(`${envInfo.BACKEND_BASE_URI}/api/v1/payment/methods/stripe`, {
         method: "POST",
         signal: abortController.signal,
         headers: { "Content-Type": "application/json" },

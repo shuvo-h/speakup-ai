@@ -6,6 +6,7 @@ import PaySubNav from '../../../clientSide/components/payment/PaySubNav';
 import PrivateComponent from '../../../clientSide/components/ProtectedComponents/PrivateComponent';
 import useAuthFromCookie from '../../../clientSide/hooks/useAuthFromCookie';
 import { RightArrowIcon } from '../../../clientSide/utils/Icons/IconRightMark';
+import { envInfo } from '../../../server_side/utils/envInitializer';
 
 
 const PaymentForm = () => {
@@ -40,7 +41,7 @@ const PaymentForm = () => {
     const fetchPackageByID = async(packageID,duration="") =>{
         if (!packageID) {return;}
         try {
-            const packageRes = await fetch(`/api/v1/package/${packageID}?duration=${duration??""}`);
+            const packageRes = await fetch(`${envInfo.BACKEND_BASE_URI}/api/v1/package/${packageID}?duration=${duration??""}`);
             return await packageRes.json();
         } catch (error) {
             console.log(error);

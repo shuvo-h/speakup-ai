@@ -7,6 +7,7 @@ import PrivateComponent from '../../clientSide/components/ProtectedComponents/Pr
 import useAuthFromCookie from '../../clientSide/hooks/useAuthFromCookie';
 import { downloadBlobToAudio } from '../../clientSide/utils/fileSystem/downloadFile';
 import { gttActiveLanguages } from '../../server_side/utils/activeLanguageGttUnOfficial';
+import { envInfo } from '../../server_side/utils/envInitializer';
 import dashST from "../../styles/dashboard.module.css";
 
 const DashboardHome = () => {
@@ -31,12 +32,14 @@ const DashboardHome = () => {
             setConvertCardErrLoad(pre=>{
                 return {...pre,isLoading:true,msg:""}
             });
-            fetch(`/api/v1/convert_card/${user._id}`)
+            fetch(`${envInfo.BACKEND_BASE_URI}/api/v1/convert_card/${user._id}`)
             .then(res=>res.json())
             .then(resData =>{
+                console.log(resData.data.package_id);
                 if (resData?.data?._id) {
                     // setting languages with code and public name
                     resData.data.package_id.languages =  gttActiveLanguages.filter(storeLang => resData.data.package_id.languages.includes(storeLang.code))
+                    console.log(resData.data.package_id.languages);
                     setConvertCard(resData.data);
                     setLanguageCode(resData.data.package_id.languages[0]?.code);
                     setAudioFileType(resData.data.package_id.fileTypes[0])
@@ -109,7 +112,7 @@ const DashboardHome = () => {
         setAudioConvertErr("");
 
         // everything lookg like okay! now go for convert
-        fetch(`/api/v1/audio/convert?convertCard_id=${convertCard._id}`,{
+        fetch(`${envInfo.BACKEND_BASE_URI}/api/v1/audio/convert?convertCard_id=${convertCard._id}`,{
             method:"POST",
             headers:{
                 "content-type":"application/json",
@@ -171,7 +174,7 @@ const DashboardHome = () => {
         textAreaRef.current.style.height = scrollHeight + "px";
     }
     const [charCount,setCharCount] = useState(0);
-
+console.log(convertCard);
     return (
         <MainLayout>
             <PrivateComponent>
@@ -194,7 +197,7 @@ const DashboardHome = () => {
                         {audioConvertErr && <p style={{color:"red", textAlign:"center"}}>{audioConvertErr}</p>}
                         {
                             !   audioFile 
-                            ?   <button onClick={handleAudioConvert}>Convert to .{audioFileType.extension}</button>
+                            ?   <button onClick={handleAudioConvert}>Convert to .{audioFileType?.extension}</button>
                             :   <button onClick={()=>downloadBlobToAudio(audioFile,`SpeakUP-AI_${Date.now()}`)}>Download .{audioFileType.extension}</button>
                         }
                         {

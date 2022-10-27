@@ -2,13 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import homeST from "../../../styles/Home.module.css";
 import { gttActiveLanguages } from '../../../server_side/utils/activeLanguageGttUnOfficial';
 import { freeCharacterLimit } from '../../staticData/audioConvertData';
+import { envInfo } from '../../../server_side/utils/envInitializer';
+import { downloadBlobToAudio } from '../../utils/fileSystem/downloadFile';
 
 const FreeConverter = () => {
     const [freeAudio,setFreeAudio] = useState(null);
     const [convertErr,setConvertErr] = useState("");
     const [isConvertLoading,setIsConvertLoading] = useState(false);
     const [languageCode,setLanguageCode] = useState(gttActiveLanguages.find(gtt=>gtt.code === 'en-us')?.code);
-    const [ipInfo,setIpInfo] = useState("");
+    const [ipInfo,setIpInfo] = useState({});
     const [commonErr,setCommonErr] = useState("");
     // const [IpInfoErr,setIpInfoErr] = useState("");
     const textAreaRef = useRef();
@@ -18,7 +20,7 @@ const FreeConverter = () => {
         if (!text) {
             return setConvertErr("Text is required!")
         }
-        if (ipInfo.characters_used && ipInfo.characters_used > freeCharacterLimit) {
+        if (ipInfo?.characters_used && ipInfo?.characters_used > freeCharacterLimit) {
             return setConvertErr("You have reached your character for today!")
         }
 
@@ -28,7 +30,7 @@ const FreeConverter = () => {
         setFreeAudio(null);
 
         // convert the audio
-        fetch(`/api/v1/audio/free_convert`,{
+        fetch(`${envInfo.BACKEND_BASE_URI}/api/v1/audio/free_convert`,{
             method:"POST",
             headers:{
                 "content-type":"application/json",
@@ -55,6 +57,7 @@ const FreeConverter = () => {
                     const audFileUrl = e.target.result;
                     setFreeAudio(audFileUrl);
                     setIpInfo(pre=>{
+                        pre.characters_used = pre.characters_used ?? 0;
                         return {...pre,characters_used:pre.characters_used+text.length}
                     })
                 }
@@ -72,7 +75,7 @@ const FreeConverter = () => {
 
     useEffect(()=>{
         const abortController = new AbortController();
-        fetch('/api/v1/free',{signal:abortController.signal})
+        fetch(`${envInfo.BACKEND_BASE_URI}/api/v1/free`,{signal:abortController.signal})
         .then(res=>res.json())
         .then(data=>{
             if (!data.error) {
@@ -81,6 +84,8 @@ const FreeConverter = () => {
                 setCommonErr(data.message);
             }
             console.log(data);
+        }).catch(err=>{
+            console.log(err);
         })
         return ()=>abortController.abort()
     },[])
@@ -90,7 +95,7 @@ const FreeConverter = () => {
             <textarea ref={textAreaRef} name="" id="" ></textarea>
             <div className={homeST.textareStatusMsg}>
                 <p className={`m-0 color-danger`}>{commonErr ? commonErr : convertErr} </p>
-                <p className={`m-0`}>{ipInfo.characters_used ?? 0} of {freeCharacterLimit} characters used</p>
+                <p className={`m-0`}>{ipInfo?.characters_used ?? 0} of {freeCharacterLimit} characters used</p>
             </div>
             <div className={`d-flex alignCenter ${homeST.convertControl}`}>
                 <div>
@@ -104,7 +109,7 @@ const FreeConverter = () => {
                     <audio src={freeAudio} controls></audio>
                 </div>
                 <div>
-                    {freeAudio? <button>Download</button>: <button onClick={convertHandler}>Convert</button>}
+                    {freeAudio? <button  onClick={()=>downloadBlobToAudio(freeAudio,`SpeakUP-AI_${Date.now()}`)}>Download</button>: <button onClick={convertHandler}>Convert</button>}
                 </div>
             </div>
             

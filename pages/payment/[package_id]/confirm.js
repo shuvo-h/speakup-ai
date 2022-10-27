@@ -7,6 +7,7 @@ import MainLayout from '../../../clientSide/components/common/MainLayout';
 import PrivateComponent from '../../../clientSide/components/ProtectedComponents/PrivateComponent';
 import useAuthFromCookie from '../../../clientSide/hooks/useAuthFromCookie';
 import { cookieSetConvertCard } from '../../../clientSide/utils/cookieUtils/setCookies';
+import { envInfo } from '../../../server_side/utils/envInitializer';
 import paymentST from "../../../styles/Payment.module.css";
 
 
@@ -24,7 +25,7 @@ const Confirm = () => {
         if (redirect_status && payment_intent && user.token) {
             setIsloading(true)
             // fetch the payment_intent id to database update thaat payment is complete and active the package
-            fetch(`/api/v1/payment/methods/stripe/${payment_intent}`,{
+            fetch(`${envInfo.BACKEND_BASE_URI}/api/v1/payment/methods/stripe/${payment_intent}`,{
                 method:"POST",
                 signal: abortController.signal,
                 headers:{

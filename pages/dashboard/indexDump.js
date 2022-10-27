@@ -30,7 +30,7 @@ const Order = () => {
             alert("Text is required!")
             return;
         }
-        fetch('/api/v1/audio/convert',{
+        fetch(`${envInfo.BACKEND_BASE_URI}/api/v1/audio/convert`,{
             method:"POST",
             headers:{"content-type":"application/json"},
             body:JSON.stringify({text:textForAudio,lang:languageCode})

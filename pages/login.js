@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import useAuthFromCookie from '../clientSide/hooks/useAuthFromCookie';
 import { addInStateObj } from '../clientSide/utils/reactUtils/stateSetter';
+import { envInfo } from '../server_side/utils/envInitializer';
 import stylesLogReg from '../styles/loginReg.module.css';
 
 
@@ -15,7 +16,7 @@ const Login = () => {
         e.preventDefault();;
         
         // store the data to database
-        fetch('/api/v1/auth/login',{
+        fetch(`${envInfo.BACKEND_BASE_URI}/api/v1/auth/login`,{
             method:"POST",
             headers:{"content-type":"application/json"},
             body:JSON.stringify(loginInfo)

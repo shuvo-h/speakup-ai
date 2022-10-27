@@ -2,6 +2,6 @@ export const envInfo = {
     MONGODB_CONNECT_URI: process.env.MONGODB_CONNECT_URI,
     JWT_SECRET: process.env.JWT_SECRET,
     FRONTEND_BASE_URL:process.env.FRONTEND_BASE_URL,
-    BACKEND_BASE_URI:process.env.BACKEND_BASE_URI,
+    BACKEND_BASE_URI:process.env.NEXT_PUBLIC_BACKEND_BASE_URI,
     STRIPE_SECRET_KEY:process.env.STRIPE_SECRET_KEY,
 }

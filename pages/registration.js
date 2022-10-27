@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { addInStateObj } from '../clientSide/utils/reactUtils/stateSetter';
+import { envInfo } from '../server_side/utils/envInitializer';
 import stylesLogReg from '../styles/loginReg.module.css';
 
 const Registration = () => {
@@ -9,10 +10,10 @@ const Registration = () => {
 
     const handleRegistration = (e) =>{
         e.preventDefault();
-        console.log(regInfo);
+        
         if (regInfo.password === regInfo.confirmPassword) {
             // store the data to database
-            fetch('/api/v1/auth/registration',{
+            fetch(`${envInfo.BACKEND_BASE_URI}/api/v1/auth/registration`,{
                 method:"POST",
                 headers:{"content-type":"application/json"},
                 body:JSON.stringify(regInfo)
