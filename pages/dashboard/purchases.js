@@ -1,6 +1,6 @@
 import React from 'react';
-import MainLayout from '../../client_side/components/common/MainLayout';
-import PrivateComponent from '../../client_side/components/ProtectedComponents/PrivateComponent';
+import MainLayout from '../../clientSide/components/common/MainLayout';
+import PrivateComponent from '../../clientSide/components/ProtectedComponents/PrivateComponent';
 
 const Purchases = () => {
     return (

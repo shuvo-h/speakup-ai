@@ -26,17 +26,22 @@ export default handler;
 async function getStripeInfoCtl(req, res,next) {
   const {stripe_intent_id} = req.query;
   const decodedUser = req.decodedUser; 
+  
   try {
+    console.log("St Trying 2222");
     if(decodedUser._id){
       if(stripe_intent_id){
         // get the payment information from stripe and check with user data
         // const paymentIntentInfo = await stripe.paymentIntents.retrieve('pi_3LssYXDZzhqf7ann2dlI6iqn',);
         const paymentIntentInfo = await stripe.paymentIntents.retrieve(stripe_intent_id);
+        console.log("St !!");
         const userPaymentSlip = await getSlipByAgetPayIDAndUserIdService(stripe_intent_id,decodedUser._id);
+        console.log(userPaymentSlip,"userPaymentSlip afeter");
         
         if ((parseFloat(userPaymentSlip.amount)*100).toFixed(2) === (paymentIntentInfo.amount).toFixed(2) && (parseFloat(userPaymentSlip.amount)*100).toFixed(2) === (paymentIntentInfo.amount_received).toFixed(2)) {
           // check if the user already has an exist convertCard, so make upsert->True
           const isExistCard = await checkIsConverCardExistByUserId(decodedUser._id);
+          console.log(isExistCard,"userPaymentSlip in CHECKKKKKKKKK");
           
           const newConvertCardInfo = {
             user_id: decodedUser._id,
@@ -57,8 +62,9 @@ async function getStripeInfoCtl(req, res,next) {
             delete newConvertCardInfo.file_count; // delete the file_count, we don't want to update it
             newConvertCardInfo.card_status = new Date(userPaymentSlip.package_expire) > new Date() ? 'active':'inactive'
             const updatedCard = await updateConverCardByUserIdService(decodedUser._id,newConvertCardInfo);
-            
+            console.log(updatedCard,"CArd is Exist and Updatinggggggg");
             if (!updatedCard.error) {
+              console.log("SEnding jes reson OKKAAYY");
               res.status(200).json({card:"ok",...updatedCard})
             }else{
               res.status(403).json({error:true,message:updatedCard.message??"Failed to update convert card!"})
@@ -74,6 +80,7 @@ async function getStripeInfoCtl(req, res,next) {
             }
           }
         }else{
+          console.log("Payment Didn't match");
           throw new Error("Invalid payment amount!");
         }
       }else{

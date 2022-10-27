@@ -8,12 +8,12 @@ export const getTestIpCtl = async(req,res,next) =>{
                     req.socket.remoteAddress ||
                     req.connection.socket.remoteAddress;
 
-        const {ip,...restDoc} = await getTestIpUserByIpAddressService(reqIP);
-
-        if (restDoc._id) {
-            res.status(200).json({error:false,message:"",data:restDoc})
+        const ipinfo = await getTestIpUserByIpAddressService(reqIP);
+        delete ipinfo.ip; // delete the ip address
+        if (ipinfo._id) {
+            res.status(200).json({error:false,message:"",data:ipinfo})
         }else{
-            throw new Error(restDoc.message)
+            throw new Error(ipinfo.message)
         }
     } catch (error) {
         res.status(500).json({error:true,message: error.message ?? "Fail to send IP address info!"})

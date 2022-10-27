@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import DashboardLayout from '../../client_side/components/common/DashboardLayout';
-import { addInStateObj } from '../../client_side/utils/reactUtils/stateSetter';
-import { gttActiveLanguages } from '../../server_side/utils/activeLanguageGttUnOfficial';
-import useAuthFromCookie from '../../client_side/hooks/useAuthFromCookie';
-import AudioPlayer from '../../client_side/components/dashboard/AudioPlayer';
 import NavLink from "next/link";
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import DashboardLayout from '../../clientSide/components/common/DashboardLayout';
+import AudioPlayer from '../../clientSide/components/dashboard/AudioPlayer';
+import useAuthFromCookie from '../../clientSide/hooks/useAuthFromCookie';
+import { gttActiveLanguages } from '../../server_side/utils/activeLanguageGttUnOfficial';
 
 const dashboard_MetaInfo = {
     title: "Dashboard/SpeakUp-AI",

@@ -1,12 +1,11 @@
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
-import MainLayout from '../../../client_side/components/common/MainLayout';
-import PaySubNav from '../../../client_side/components/payment/PaySubNav';
-import StripeElement from '../../../client_side/components/payment/stripe/StripeElement';
-import PrivateComponent from '../../../client_side/components/ProtectedComponents/PrivateComponent';
-import useAuthFromCookie from '../../../client_side/hooks/useAuthFromCookie';
-import { envCLientInfo } from '../../../client_side/utils/envCLientInitializer';
-import { RightArrowIcon } from '../../../client_side/utils/Icons/IconRightMark';
+import React from 'react';
+import MainLayout from '../../../clientSide/components/common/MainLayout';
+import PaySubNav from '../../../clientSide/components/payment/PaySubNav';
+import StripeElement from '../../../clientSide/components/payment/stripe/StripeElement';
+import PrivateComponent from '../../../clientSide/components/ProtectedComponents/PrivateComponent';
+import useAuthFromCookie from '../../../clientSide/hooks/useAuthFromCookie';
+import { RightArrowIcon } from '../../../clientSide/utils/Icons/IconRightMark';
 
 const PayCard = () => {
     const router = useRouter();

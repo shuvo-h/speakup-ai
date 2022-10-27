@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { addInStateObj } from '../client_side/utils/reactUtils/stateSetter';
-import stylesLogReg from '../styles/loginReg.module.css'
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import useAuthFromCookie from '../client_side/hooks/useAuthFromCookie';
+import React, { useState } from 'react';
+import useAuthFromCookie from '../clientSide/hooks/useAuthFromCookie';
+import { addInStateObj } from '../clientSide/utils/reactUtils/stateSetter';
+import stylesLogReg from '../styles/loginReg.module.css';
 
 
 const Login = () => {

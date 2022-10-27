@@ -1,9 +1,7 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import MainLayout from '../client_side/components/common/MainLayout'
-import FreeConverter from '../client_side/components/home/FreeConverter'
-import ProcessSteps from '../client_side/components/home/ProcessSteps'
-import SupportedLanguages, { HintsToSignUp, HireAPro, ShortSiteAd } from '../client_side/components/home/SupportedLanguages'
+import MainLayout from '../clientSide/components/common/MainLayout'
+import FreeConverter from '../clientSide/components/home/FreeConverter'
+import ProcessSteps from '../clientSide/components/home/ProcessSteps'
+import SupportedLanguages, { HintsToSignUp, HireAPro, ShortSiteAd } from '../clientSide/components/home/SupportedLanguages'
 import homeST from '../styles/Home.module.css'
 
 const homePage_meta = {

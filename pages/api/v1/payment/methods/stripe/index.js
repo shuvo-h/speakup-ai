@@ -56,9 +56,7 @@ const organizePuschaseInfo = async(pruchaseData) =>{
 export default async function handler(req, res) {
   try {
     const newOrder = await organizePuschaseInfo(req.body);
-    
     if (!newOrder.error) {
-     
       // Create a PaymentIntent with the order amount and currency
       const paymentIntent = await stripe.paymentIntents.create({
         amount: calculateOrderAmount(newOrder.amount), // make the USD to-> cent

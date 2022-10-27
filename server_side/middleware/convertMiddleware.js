@@ -1,4 +1,4 @@
-import { freeCharacterLimit } from "../../client_side/staticData/audioConvertData";
+import { freeCharacterLimit } from "../../clientSide/staticData/audioConvertData";
 import { getConvertCardbyIdService, updateConverCardByIdService } from "../services/convertCardServices";
 import { createNewIpUserService, getTestIpUserByIpAddressService, updateTestIpUserByIdService } from "../services/testIpUserService";
 import { gttActiveLanguages } from "../utils/activeLanguageGttUnOfficial";
@@ -18,7 +18,7 @@ export const checkCardLimit = async(req,res,next)=>{
                     // console.log(isNotExpire,"isNotExpire");
                     if ((convertCard?.card_status === 'active') && isNotExpire) {
                         // card is not expired, check req limit
-                        const isToday = new Date(convertCard.req_per_day_reamining.today).toISOString().split("T")[0] === new Date().toISOString().split("T")[0];
+                        let isToday = new Date(convertCard.req_per_day_reamining.today).toISOString().split("T")[0] === new Date().toISOString().split("T")[0];
                         
                         // if it is not today, update the card with today date and set the remaining req per day as default, and change isToday as true
                         if (!isToday) {

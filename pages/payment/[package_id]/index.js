@@ -1,13 +1,11 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import NavLink from "next/link";
-import payST from "../../../styles/Payment.module.css"
-import MainLayout from '../../../client_side/components/common/MainLayout';
-import PackageSelected from '../../../client_side/components/payment/PackageSelected';
-import PrivateComponent from '../../../client_side/components/ProtectedComponents/PrivateComponent';
-import useAuthFromCookie from '../../../client_side/hooks/useAuthFromCookie';
-import { RightArrowIcon } from '../../../client_side/utils/Icons/IconRightMark';
-import PaySubNav from '../../../client_side/components/payment/PaySubNav';
+import MainLayout from '../../../clientSide/components/common/MainLayout';
+import PackageSelected from '../../../clientSide/components/payment/PackageSelected';
+import PaySubNav from '../../../clientSide/components/payment/PaySubNav';
+import PrivateComponent from '../../../clientSide/components/ProtectedComponents/PrivateComponent';
+import useAuthFromCookie from '../../../clientSide/hooks/useAuthFromCookie';
+import { RightArrowIcon } from '../../../clientSide/utils/Icons/IconRightMark';
 
 
 const PaymentForm = () => {

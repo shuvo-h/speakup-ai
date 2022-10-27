@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import { getUserByIdService } from '../services/userServices';
 import { envInfo } from "../utils/envInitializer";
 
+
 export const checkLogin = async (req,res,next) =>{
     
     const token = req.headers?.authorization?.startsWith("Bearer " ) ? req.headers?.authorization?.split(" ")[1] : null;

@@ -2,10 +2,9 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import packageST from "../../../styles/package.module.css";
 import {IconRightMark} from '../../utils/Icons/IconRightMark';
-import { pkgDuration } from './packageCards';
+import { pkgDuration } from './PackageCards';
 
-const PackageCard = ({packageEl,pkgBtnlight,pkgIdx,user}) => {
-    console.log(packageEl,"it idd");
+const PackageSingleCard = ({pkgBtnlight,pkgIdx,packageEl,user}) => {
     const router = useRouter();
     const {} = useAuth
     const getPaymentStarthandler = (packageID) =>{
@@ -55,4 +54,4 @@ const PackageCard = ({packageEl,pkgBtnlight,pkgIdx,user}) => {
     );
 };
 
-export default PackageCard;
+export default PackageSingleCard;

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import { addInStateObj } from '../client_side/utils/reactUtils/stateSetter';
-import stylesLogReg from '../styles/loginReg.module.css'
+import { addInStateObj } from '../clientSide/utils/reactUtils/stateSetter';
+import stylesLogReg from '../styles/loginReg.module.css';
 
 const Registration = () => {
     const router = useRouter();

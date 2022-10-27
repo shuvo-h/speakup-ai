@@ -1,13 +1,13 @@
 import Image from 'next/image';
+import NavLink from "next/link";
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import MainLayout from '../../../client_side/components/common/MainLayout';
-import PrivateComponent from '../../../client_side/components/ProtectedComponents/PrivateComponent';
-import purchaseSuccessImg from "../../../client_side/assets/card/purchase_success.png";
+import purchaseSuccessImg from "../../../clientSide/assets/card/purchase_success.png";
+import MainLayout from '../../../clientSide/components/common/MainLayout';
+import PrivateComponent from '../../../clientSide/components/ProtectedComponents/PrivateComponent';
+import useAuthFromCookie from '../../../clientSide/hooks/useAuthFromCookie';
+import { cookieSetConvertCard } from '../../../clientSide/utils/cookieUtils/setCookies';
 import paymentST from "../../../styles/Payment.module.css";
-import NavLink from "next/link"
-import useAuthFromCookie from '../../../client_side/hooks/useAuthFromCookie';
-import { cookieSetConvertCard } from '../../../client_side/utils/cookieUtils/setCookies';
 
 
 const Confirm = () => {

@@ -1,13 +1,13 @@
+import NavLink from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
-import MainLayout from '../../client_side/components/common/MainLayout';
-import ConvertCard from '../../client_side/components/dashboard/ConvertCard';
-import PrivateComponent from '../../client_side/components/ProtectedComponents/PrivateComponent';
-import useAuthFromCookie from '../../client_side/hooks/useAuthFromCookie';
-import dashST from "../../styles/dashboard.module.css";
-import NavLink from 'next/link'
+import MainLayout from '../../clientSide/components/common/MainLayout';
+import AudioPlayer from '../../clientSide/components/dashboard/AudioPlayer';
+import ConvertCard from '../../clientSide/components/dashboard/ConvertCard';
+import PrivateComponent from '../../clientSide/components/ProtectedComponents/PrivateComponent';
+import useAuthFromCookie from '../../clientSide/hooks/useAuthFromCookie';
+import { downloadBlobToAudio } from '../../clientSide/utils/fileSystem/downloadFile';
 import { gttActiveLanguages } from '../../server_side/utils/activeLanguageGttUnOfficial';
-import AudioPlayer from '../../client_side/components/dashboard/AudioPlayer';
-import { downloadBlobToAudio } from '../../client_side/utils/fileSystem/downloadFile';
+import dashST from "../../styles/dashboard.module.css";
 
 const DashboardHome = () => {
     const {user,isUserLoading} = useAuthFromCookie();

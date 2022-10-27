@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import PackageCard from './packageCard';
 import packageST from "../../../styles/package.module.css";
+import PackageSingleCard from "./PackageSingleCard";
 
 export const pkgDuration = {
     month: "monthly",
@@ -53,7 +53,7 @@ const PackageCards = ({packages,user}) => {
             </div>
             <div className={`${packageST.packages}`}>
                 {
-                    packagesSt.map((packageEl,pkgIdx) => <PackageCard pkgBtnlight={pkgBtnlight} pkgIdx={pkgIdx} packageEl={packageEl} user={user} key={packageEl._id}></PackageCard>)
+                    packagesSt.map((packageEl,pkgIdx) => <PackageSingleCard pkgBtnlight={pkgBtnlight} pkgIdx={pkgIdx} packageEl={packageEl} user={user} key={packageEl._id}></PackageSingleCard>)
                 }
             </div>
             
