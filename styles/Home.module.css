@@ -79,7 +79,7 @@
 
 .convertControl {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr 150px;
   justify-items: center;
 }
 .convertControl select {
@@ -92,12 +92,17 @@
   border-radius: 4px;
   font-weight: 700;
   background-color: lightblue;
-  padding: 8px 14px;
+  padding: 3px 14px;
+  display: block;
+  margin: 4px auto;
 }
 .convertControl button:hover {
   background-color: rgb(147, 205, 224);
   cursor: pointer;
   color: blue;
+}
+.freeControlBtns{
+
 }
 
 /* Home Page Common styles */
@@ -109,6 +114,7 @@
 /* step card styles  start */
 .stepCardContainer {
   margin: 4rem 10%;
+  text-align: center;
 }
 .stepCardContainer h1 {
   /* font-size: xx-large;
@@ -132,6 +138,7 @@
   background-color: rgb(48, 52, 105);
   padding-top: 3rem;
   padding-bottom: 5rem;
+  text-align: center;
 }
 .langWrapper {
   margin: auto 10%;
@@ -140,6 +147,7 @@
 .langCards {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .langCard {
   padding: 8px 14px;
@@ -275,3 +283,167 @@
 .profileIcons {
   gap: 1rem;
 }
+
+
+
+
+
+/* *****RESPONSIVE STYLES START******  */
+
+@media (max-width: 576px) {
+  .bannerContainer {
+    height: 30rem;
+    grid-template-columns: repeat(1, 1fr);
+    /* margin-bottom: 15rem; */
+    background-position: -130px;
+    background-size: cover;
+  }
+  .bannerText {
+    margin: 1rem;
+  }
+  .bannerText h1 {
+    font-size: 1.3rem;
+  }
+  .bannerText p {
+    /* font-size: x-large; */
+  }
+
+  /* Free Convert Box responsive  */
+  .freeConvertContainer {
+    width: 80%;
+    bottom: -15rem; /* match it with next section by adding same margin with it's parent .bannerContainer{}*/
+    border-radius: 0.6rem;
+  }
+  .convertControl {
+    grid-template-columns: repeat(1,1fr);
+    gap: 0.5rem;
+    margin-top: 10px;
+  }
+
+  /* process steps responsive  */
+  .stepCardContainer {
+    margin-top: 18rem;
+    text-align: center;
+  }
+  .stepCards {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+  }
+  /* sort site add responsive  */
+  .sortSiteAdd {
+    margin: 4rem 10px 10rem 10px;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0;
+  }
+  .sortSiteAdd h1{
+    font-size: 2.2rem;
+  }
+  .sortSiteAdd p{
+    font-size: 1.2rem;
+    margin: auto 5%;
+  }
+  .sortSiteAddMedia{
+    min-height: 15rem;
+  }
+
+  /* supported languages responsive  */
+  .langContainer {
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+  }
+  .langWrapper {
+    margin: auto 1%;
+  }
+  .langCard {
+    padding: 8px 0px;
+    width: 190px;
+  }
+
+  /* hits signup responsive  */
+  .hintsSignnUp {
+    margin: 4rem 2%;
+    text-align: center;
+  }
+  .hintsSignnUp h1{
+    font-size: 1.8rem;
+    /* max-width: 50rem; */
+    /* margin: 2rem auto; */
+  }
+
+  /* profile responsive  */
+  .profiles {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+  .profile {
+    width: 90%;
+  }
+
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .bannerContainer {
+    height: 30rem;
+    grid-template-columns: repeat(1, 1fr);
+    margin-bottom: 18rem;
+    background-size: cover;
+    text-align: center;
+  }
+  .freeConvertContainer {
+    width: 82%;
+    bottom: -15rem; /* match it with next section by adding same margin with it's parent .bannerContainer{}*/
+  }
+  .stepCards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .sortSiteAdd h1{
+    font-size: 1.5rem;
+  }
+  .sortSiteAdd p{
+    font-size: 20px;
+  }
+  .langCard {
+    padding: 8px 0px;
+    width: 190px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  .bannerContainer {
+    grid-template-columns: repeat(1, 1fr);
+    margin-bottom: 18rem;
+    background-size: cover;
+    text-align: center;
+  }
+  .freeConvertContainer {
+    width: 80%;
+    bottom: -15rem; /* match it with next section by adding same margin with it's parent .bannerContainer{}*/
+  }
+  .stepCards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+  .bannerContainer {
+    grid-template-columns: repeat(1, 1fr);
+    margin-bottom: 18rem;
+    background-size: cover;
+    text-align: center;
+  }
+}
+
+@media (min-width: 1201px) and (max-width: 1400px) {
+  .bannerContainer {
+    grid-template-columns: repeat(1, 1fr);
+    margin-bottom: 18rem;
+    background-size: cover;
+    text-align: center;
+  }
+}
+
+
+/* *******RESPONSIVE STYLES END******* */

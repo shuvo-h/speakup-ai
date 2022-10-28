@@ -65,7 +65,8 @@ const StripeElement = ({user,amount,duration,pay_card,package_id}) => {
               ? <Elements options={options} stripe={stripePromise}>
                   <CheckoutForm amount={amount} package_id={package_id}/>
                 </Elements>
-              : <Image src={card_skeleton.src} width={480} height={250} objectFit='fill' alt="Credit Card Loading..."></Image>
+              // : <Image src={card_skeleton.src} width={480} height={250} objectFit='fill' alt="Credit Card Loading..."></Image>
+              : <Image src={card_skeleton.src} width={16} height={9} layout="responsive" alt="Credit Card Loading..."></Image>
           }
         <div>
           

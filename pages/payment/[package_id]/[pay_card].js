@@ -12,7 +12,7 @@ const PayCard = () => {
     const {user,isUserLoading} = useAuthFromCookie();
     const {package_id,pay_card,amount,duration} = router.query;
     // console.log({package_id,pay_card});
-    console.log(router.query);
+    // console.log(router.query);
     const paymentPageStepShow = [
         {name:"package",pathname:`/payment/${package_id}?duration=${duration}`, icon: <RightArrowIcon width={30} height={30} />, diable:false},
         {name:"purchase order",pathname:`/payment/${package_id}?duration=${duration}`, icon: <RightArrowIcon />, diable:false},

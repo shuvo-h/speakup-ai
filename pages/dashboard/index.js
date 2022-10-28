@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import MainLayout from '../../clientSide/components/common/MainLayout';
 import AudioPlayer from '../../clientSide/components/dashboard/AudioPlayer';
 import ConvertCard from '../../clientSide/components/dashboard/ConvertCard';
+import LoaderDownload from '../../clientSide/components/Loaders/LoaderDownload/LoaderDownload';
+import LoaderWeather from '../../clientSide/components/Loaders/LoaderWeather/LoaderWeather';
 import PrivateComponent from '../../clientSide/components/ProtectedComponents/PrivateComponent';
 import useAuthFromCookie from '../../clientSide/hooks/useAuthFromCookie';
 import { downloadBlobToAudio } from '../../clientSide/utils/fileSystem/downloadFile';
@@ -178,27 +180,31 @@ console.log(convertCard);
     return (
         <MainLayout>
             <PrivateComponent>
+                
                 <section className={`d-flex justifyBetween ${dashST.card_fileInfo_container}`}>
                     <div className={`p-7 ${dashST.textInputArea}`}>
                         <h3 className={`text-center`}>Convert Your Text into Audio</h3>
                         <textarea className={`p-6`} onInput={auto_grow} ref={textAreaRef} onChange={(e)=> setCharCount(e.target.value.length)} name="" id="" placeholder='Write or paste your text here'></textarea>
                         <p style={{textAlign:"right",color:convertCard.character_limit_per_req < charCount ? "red" : "#fff"}}>{charCount}/{convertCard.character_limit_per_req} characters</p>
-                        <div className='m-7'>
+                        <div>
                             {
                                 audioFile && <AudioPlayer audioFileDataURl={audioFile}></AudioPlayer>
                             }
                         </div>
+                        
                         {/* loading or not -> audio has or not */}
 
                         {
-                            audioConverting && <p>Converting............</p>
+                            audioConverting && <div style={{width:"fit-content",margin:"auto"}}><LoaderWeather></LoaderWeather></div>
                         }
                         {/* show error message during converting  */}
                         {audioConvertErr && <p style={{color:"red", textAlign:"center"}}>{audioConvertErr}</p>}
                         {
-                            !   audioFile 
-                            ?   <button onClick={handleAudioConvert}>Convert to .{audioFileType?.extension}</button>
-                            :   <button onClick={()=>downloadBlobToAudio(audioFile,`SpeakUP-AI_${Date.now()}`)}>Download .{audioFileType.extension}</button>
+                            !audioConverting && !audioFile && audioFileType?.extension && <button onClick={handleAudioConvert}>Convert to .{audioFileType?.extension}</button>
+                        }
+                        {
+                            // audioFile && <button onClick={()=>downloadBlobToAudio(audioFile,`SpeakUP-AI_${Date.now()}`)}>Download .{audioFileType.extension}</button>
+                            audioFile && <button onClick={()=>downloadBlobToAudio(audioFile,`SpeakUP-AI_${Date.now()}`)}> <LoaderDownload /> </button>
                         }
                         {
                             audioFile &&  <button onClick={anotherConverthandler}>Convert Another Text</button>
@@ -243,7 +249,6 @@ console.log(convertCard);
                         </div>
                     </aside>
                 </section>
-
             </PrivateComponent>
         </MainLayout>
     );

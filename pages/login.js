@@ -5,6 +5,8 @@ import useAuthFromCookie from '../clientSide/hooks/useAuthFromCookie';
 import { addInStateObj } from '../clientSide/utils/reactUtils/stateSetter';
 import { envInfo } from '../server_side/utils/envInitializer';
 import stylesLogReg from '../styles/loginReg.module.css';
+import MainLayout from '../clientSide/components/common/MainLayout';
+import { UserIcon } from '../clientSide/utils/Icons/IconRightMark';
 
 
 const Login = () => {
@@ -42,21 +44,27 @@ const Login = () => {
     }
 
     return (
-        <div className={`color-primary-dark ${stylesLogReg.logReg_container}`}>
-            <div  className={`${stylesLogReg.formFields}`}>
-                <form onSubmit={handleLogin}>
-                    <div className={`d-flex justifyBetween`}>
-                        <label htmlFor="">Email Address:</label>
-                        <input className={`color-primary-dark`} onChange={(e)=>addInStateObj(setLoginInfo,e.target.name,e.target.value)} name='email' placeholder='write your email address'  type="email" required/>
+        <MainLayout mainLayoutClassName={stylesLogReg.logReg_container}>
+            <div className={`color-primary-dark ${stylesLogReg.logReg_wrapper}`}>
+                <div  className={`${stylesLogReg.formFields}`}>
+                    <div>
+                        <div><UserIcon width={40} height={40} /> <p>Login</p></div>
+                        <div><UserIcon width={40} height={40} /> <p>Register</p></div>
                     </div>
-                    <div className={`d-flex justifyBetween`}>
-                        <label htmlFor="">Password:</label>
-                        <input className={`color-primary-dark`} onChange={(e)=>addInStateObj(setLoginInfo,e.target.name,e.target.value)} name='password' type="password" placeholder='Type a password' required/>
-                    </div>
-                    <button type="submit">Sign Up</button>
-                </form>
+                    <form onSubmit={handleLogin}>
+                        <div className={`d-flex justifyBetween`}>
+                            <label htmlFor="">Email Address:</label>
+                            <input className={`color-primary-dark`} onChange={(e)=>addInStateObj(setLoginInfo,e.target.name,e.target.value)} name='email' placeholder='write your email address'  type="email" required/>
+                        </div>
+                        <div className={`d-flex justifyBetween`}>
+                            <label htmlFor="">Password:</label>
+                            <input className={`color-primary-dark`} onChange={(e)=>addInStateObj(setLoginInfo,e.target.name,e.target.value)} name='password' type="password" placeholder='Type a password' required/>
+                        </div>
+                        <button type="submit">Sign Up</button>
+                    </form>
+                </div>
             </div>
-        </div>
+        </MainLayout>
     );
 };
 

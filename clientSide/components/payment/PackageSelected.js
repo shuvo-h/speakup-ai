@@ -21,9 +21,10 @@ const PackageSelected = ({selectedPackage}) => {
     ]
     return (
         <div>
-            <h1 className='capitalize'>{selectedPackage.name} Package Details</h1>
+            {/* <h1 className='capitalize'>{selectedPackage.name} Package Details</h1> */}
+            <h1 className={`capitalize ${payST.package_title}`}>{selectedPackage.name} Package Details</h1>
             <div className={`m-auto p-10 capitalize ${payST.package_wrapper}`}>
-                <div>
+                <div className={`${payST.packageCharInfo}`}>
                     <div className={`d-flex justifyBetween`}>
                         <p>Total Characters per month:</p>
                         <p>{selectedPackage.character_limit}</p>

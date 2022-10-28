@@ -4,6 +4,7 @@ import { gttActiveLanguages } from '../../../server_side/utils/activeLanguageGtt
 import { freeCharacterLimit } from '../../staticData/audioConvertData';
 import { envInfo } from '../../../server_side/utils/envInitializer';
 import { downloadBlobToAudio } from '../../utils/fileSystem/downloadFile';
+import LoaderRotateBall from '../Loaders/LoaderRotateBall/LoaderRotateBall';
 
 const FreeConverter = () => {
     const [freeAudio,setFreeAudio] = useState(null);
@@ -57,7 +58,7 @@ const FreeConverter = () => {
                     const audFileUrl = e.target.result;
                     setFreeAudio(audFileUrl);
                     setIpInfo(pre=>{
-                        pre.characters_used = pre.characters_used ?? 0;
+                        pre.characters_used = pre?.characters_used ?? 0;
                         return {...pre,characters_used:pre.characters_used+text.length}
                     })
                 }
@@ -79,7 +80,7 @@ const FreeConverter = () => {
         .then(res=>res.json())
         .then(data=>{
             if (!data.error) {
-                setIpInfo(data.data)
+                setIpInfo(data.data ?? {})
             }else{
                 setCommonErr(data.message);
             }
@@ -89,7 +90,14 @@ const FreeConverter = () => {
         })
         return ()=>abortController.abort()
     },[])
-    console.log(ipInfo);
+
+    const clearForNewConvert = () =>{
+        // clear error, textarea, audio
+        setConvertErr("");
+        setFreeAudio("");
+        textAreaRef.current.value = "";
+    }
+    
     return (
         <div className={homeST.freeConvertContainer}>
             <textarea ref={textAreaRef} name="" id="" ></textarea>
@@ -108,9 +116,20 @@ const FreeConverter = () => {
                 <div>
                     <audio src={freeAudio} controls></audio>
                 </div>
-                <div>
-                    {freeAudio? <button  onClick={()=>downloadBlobToAudio(freeAudio,`SpeakUP-AI_${Date.now()}`)}>Download</button>: <button onClick={convertHandler}>Convert</button>}
-                </div>
+                {
+                    isConvertLoading 
+                    ? <div > <LoaderRotateBall></LoaderRotateBall> </div>
+                    : <div className={homeST.freeControlBtns}>
+                        {
+                            freeAudio
+                            ? <button  onClick={clearForNewConvert}>Convert New Text</button>
+                            : <button onClick={convertHandler}>Convert</button>
+                        }
+                        {freeAudio && <button  onClick={()=>downloadBlobToAudio(freeAudio,`SpeakUP-AI_${Date.now()}`)}>Download</button>}
+                    </div>
+                }
+                
+
             </div>
             
             

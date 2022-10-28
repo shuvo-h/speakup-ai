@@ -5,7 +5,8 @@
     
     align-items: center;
     display: flex;
-    width: max-content;
+    /* width: max-content; */
+    max-width: max-content;
     margin: auto;
     padding: 1.5rem;
     padding-top: 2rem;
@@ -49,6 +50,10 @@
     /* color: #7ae63b; */
   }
   
+  .controlStatus{
+    display: flex;
+  }
+
   .currentTime,
   .duration {
     font-family: monospace;
@@ -184,5 +189,48 @@
 }
 
 
+
+
+
+
+/* *****RESPONSIVE STYLES START******  */
+
+@media (max-width: 576px) {
+  .audioPlayer{
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  .controlStatus{
+    order: 3;
+    margin-top: 1rem;
+  }
+  .volume{
+    width: 1rem;
+    height: 4rem;
+    transform: translateY(0rem);
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  
+  
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  
+  
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+  
+  
+}
+
+@media (min-width: 1201px) and (max-width: 1400px) {
+  
+}
+
+
+/* *******RESPONSIVE STYLES END******* */
 
 

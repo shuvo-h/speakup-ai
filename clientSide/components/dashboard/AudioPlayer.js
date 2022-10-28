@@ -38,7 +38,7 @@ const AudioPlayer = ({audioFileDataURl}) => {
             setTimeout(()=>{
                 togglePlayPause();
                 timeTravel(0);
-            },700)
+            },1000)
         }
     }, [currentTime]);
 
@@ -83,10 +83,10 @@ const AudioPlayer = ({audioFileDataURl}) => {
     }
 
     const backThirtySec = () =>{
-        timeTravel(Number(audioProgressbarRef.current.value) - 30);
+        timeTravel(Number(audioProgressbarRef.current.value) - 10);
     }
     const forwardThirtySec = () =>{
-        timeTravel(Number(audioProgressbarRef.current.value) + 30);
+        timeTravel(Number(audioProgressbarRef.current.value) + 10);
 
     }
 
@@ -115,20 +115,24 @@ const AudioPlayer = ({audioFileDataURl}) => {
                     preload="metadata"
                     onLoadedMetadata={onLoadMetaDataHandler}
                 ></audio>
-                <button className={audioST.forwardBackward} onClick={backThirtySec}> <BackwardIcon width={35}  height={35} /> </button>
-                <button className={audioST.playPause} onClick={togglePlayPause}>{isPlaying? <PlayIcon width={35} height={35} /> : <PauseIcon width={40} height={40} /> }</button>
-                <button className={audioST.forwardBackward} onClick={forwardThirtySec}> <ForwardIcon width={35}  height={35} /></button>
-
-                {/* current time  */}
-                <div className={audioST.currentTime}>{calculateAudioTime(currentTime)}</div>
-
-                {/* progress bar  */}
-                <div className={audioST.progressbar_wrapper}>
-                    <input className={audioST.progressBar} onChange={changeRange} ref={audioProgressbarRef} type="range" defaultValue={'0'}/>
+                <div className='d-flex'>
+                    <button className={audioST.forwardBackward} onClick={backThirtySec}> <BackwardIcon width={35}  height={35} /> </button>
+                    <button className={audioST.playPause} onClick={togglePlayPause}>{isPlaying? <PlayIcon width={35} height={35} /> : <PauseIcon width={40} height={40} /> }</button>
+                    <button className={audioST.forwardBackward} onClick={forwardThirtySec}> <ForwardIcon width={35}  height={35} /></button>
                 </div>
 
-                {/* Duration  */}
-                <div className={audioST.duration}>{duration && !isNaN(duration) && calculateAudioTime(duration)}</div>
+                <div className={audioST.controlStatus}>
+                    {/* current time  */}
+                    <div className={audioST.currentTime}>{calculateAudioTime(currentTime)}</div>
+
+                    {/* progress bar  */}
+                    <div className={audioST.progressbar_wrapper}>
+                        <input className={audioST.progressBar} onChange={changeRange} ref={audioProgressbarRef} type="range" defaultValue={'0'}/>
+                    </div>
+
+                    {/* Duration  */}
+                    <div className={audioST.duration}>{duration && !isNaN(duration) && calculateAudioTime(duration)}</div>
+                </div>
                 
                 {/* volume control  */}
                 <div>

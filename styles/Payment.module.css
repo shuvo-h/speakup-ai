@@ -93,3 +93,57 @@
     cursor: pointer;
 }
 /* payment successful card style  end*/
+
+
+
+
+/* *****RESPONSIVE STYLES START******  */
+
+@media (max-width: 576px) {
+    .sub_pay_nav{
+        gap: 0.5rem;
+        font-size: large;
+    }
+    .package_title{
+        font-size: 1.5rem;
+        text-align: center;
+    }
+    
+    .package_wrapper{
+        /* display: grid; */
+        grid-template-columns: repeat(1,1fr);
+        gap: 1rem;
+        max-width: 18rem;
+    }
+    .package_wrapper p{
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .packageCharInfo{
+        border-bottom: 3px dashed rgb(125, 125, 226);
+    }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  
+  
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  
+  
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+  
+  
+}
+
+@media (min-width: 1201px) and (max-width: 1400px) {
+  
+}
+
+
+/* *******RESPONSIVE STYLES END******* */
+
+

@@ -92,3 +92,43 @@
     }
   }
 /* Stripe loader btn css styles  end */
+
+
+
+
+/* *****RESPONSIVE STYLES START******  */
+
+@media (max-width: 576px) {
+  .paycard_container{
+    min-height: calc(100vh - 20rem);
+}
+  .paycard_container_wrapper{
+    padding: 1.5rem 2rem;
+    min-width: 18rem;
+    min-height: 10rem;
+}
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  
+  
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  
+  
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+  
+  
+}
+
+@media (min-width: 1201px) and (max-width: 1400px) {
+  
+}
+
+
+/* *******RESPONSIVE STYLES END******* */
+
+

@@ -1,10 +1,19 @@
 .logReg_container{
-    height: 100vh;
-    background-image: linear-gradient(to right, #0f0c29, #302b63, #24243e);
-}
+    margin: auto 0 !important;
+    background: no-repeat url("../clientSide/assets/backgrounds/login-bg.png");
+    background-size: cover;
+  }
+  .logReg_wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 17vh);
+    color: black;
+  }
 .formFields{
     margin: auto;
     width: fit-content;
+    background-color: aliceblue;
 }
 
 .formFields form div{

@@ -11,11 +11,13 @@ const MainLayout = ({metaInfo,mainLayoutClassName="",children}) => {
     useEffect(()=>{
         const classSetterFn = (e) =>{
             const navElement = document.querySelector('.navScrollTracker');
-            navElement.classList.add(mainLtST.navScrollStyle);
-            if(window.pageYOffset>0){
-                navElement.classList.add(mainLtST.navScrollStyle); 
-            }else{
-                navElement.classList.remove(mainLtST.navScrollStyle);
+            if (navElement) {
+                navElement.classList.add(mainLtST.navScrollStyle);
+                if(window.pageYOffset>0){
+                    navElement.classList.add(mainLtST.navScrollStyle); 
+                }else{
+                    navElement.classList.remove(mainLtST.navScrollStyle);
+                }
             }
         }
         window.addEventListener('scroll',classSetterFn);
@@ -43,6 +45,7 @@ const MainLayout = ({metaInfo,mainLayoutClassName="",children}) => {
                         <NavLink href={""}><a>Contact</a></NavLink>
                     </div>
                 </footer>
+
             </div>
         </div>
     );

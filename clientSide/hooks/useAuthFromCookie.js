@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
 
 const useAuthFromCookie = () => {
+    const router = useRouter();
     const [user,setUser] = useState({});
     const [isUserLoading,setIsUserLoading] = useState(true);
 
@@ -22,11 +24,20 @@ const useAuthFromCookie = () => {
         }
     },[])
 
+    const removeCookie = () =>{
+        setIsUserLoading(true);
+        Cookies.remove('user');
+        setUser({})
+        setIsUserLoading(false);
+        router.push("/login")
+    }
+
     return {
         user,
         isUserLoading,
         setUser,
-        setIsUserLoading
+        setIsUserLoading,
+        removeCookie
     };
 };
 
