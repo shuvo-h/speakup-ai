@@ -1,9 +1,9 @@
 .logReg_container{
     margin: auto 0 !important;
-    background: no-repeat url("../clientSide/assets/backgrounds/login-bg.png");
-    background-size: cover;
   }
   .logReg_wrapper{
+    background: no-repeat url("../clientSide/assets/backgrounds/login-bg.png");
+    background-size: cover;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -14,14 +14,54 @@
     margin: auto;
     width: fit-content;
     background-color: aliceblue;
+    display: flex;
+    border-radius: 5px;
+    box-shadow: 0 0 60px 10px rgba(255, 255, 255, 0.808);
+    height: 220px;
+  }
+  
+  .logReg_btns{
+    width: max-content;
 }
 
-.formFields form div{
-  gap: 1rem;
+.logReg_btns a{
+  --logReg_active_bg: #008000;
+  --logReg_active_color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  width: 150px;
+  height: 110px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.formFields form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px;
 }
 .formFields form input{
-  background-color: transparent;
-  border: 1px solid var(--whiteDark);
-  outline: none;
-  caret-color: yellowgreen;
+  color: black;
+  padding: 3px;
+}
+.formFields form input:focus{
+  outline: 1px solid rgb(5, 138, 182);
+}
+
+.formFields form button{
+  background-color: lightblue;
+  border: none;
+  border-radius: 4px;
+  padding: 3px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.formFields form button:hover{
+  background-color: rgb(110, 196, 224);
 }

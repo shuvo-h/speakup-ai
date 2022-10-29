@@ -41,7 +41,7 @@ const MainLayout = ({metaInfo,mainLayoutClassName="",children}) => {
                     <p className='m-0 p-5 text-center'>Copyright &copy; {new Date().getFullYear()} SpeakUP-AI Reserved</p>
                     <div>
                         <NavLink href={""}><a>Privacy</a></NavLink>
-                        <NavLink href={""}><a>Terms</a></NavLink>
+                        <NavLink href={"/terms&condition"}><a>Terms & condition</a></NavLink>
                         <NavLink href={""}><a>Contact</a></NavLink>
                     </div>
                 </footer>

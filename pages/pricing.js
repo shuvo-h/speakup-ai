@@ -39,7 +39,7 @@ export const getStaticProps = async() =>{
                 packages
             },
             // notFound: true,
-            revalidate: 10  // 10 sec
+            revalidate: 60*10  // 10 sec
         }
         
     }else{
@@ -47,7 +47,7 @@ export const getStaticProps = async() =>{
             props:{
                 packages: []
             },
-            revalidate: 10 // 60 sec
+            revalidate: 60*10 // 60 sec
         }
     }
 }

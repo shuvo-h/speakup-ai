@@ -64,10 +64,10 @@ const proProfiles = [
         position:"Web Developer",
         description:"A full stack web developer working to build user friendly dynamic and scaleable web sites over one year.",
         socials:[
-            { icon: <FBicon width={30} height={30} />, url:""},
-            { icon: <TwitterIcon width={30} height={30} />, url:""},
-            { icon: <LinkedINIcon width={30} height={30} />, url:""},
-            { icon: <YoutubeIcon width={30} height={30} />, url:""},
+            { icon: <FBicon width={30} height={30} />, url:"https://www.facebook.com/shuvo.haldar.38/"},
+            { icon: <TwitterIcon width={30} height={30} />, url:"https://twitter.com/shuvo_haldar"},
+            { icon: <LinkedINIcon width={30} height={30} />, url:"https://www.linkedin.com/in/shuvo-haldar/"},
+            { icon: <YoutubeIcon width={30} height={30} />, url:"https://www.youtube.com/channel/UCT7PcGQsCkwzYaU72oK1xmQ/featured"},
         ]
     },
     {
@@ -77,9 +77,9 @@ const proProfiles = [
         position:"Website Analysist",
         description:"A professional website analysist working with SEO and site performance improvement over ten year.",
         socials:[
-            { icon: <FBicon width={30} height={30} />, url:""},
+            { icon: <FBicon width={30} height={30} />, url:"https://www.facebook.com/biddrupkumar.mallick"},
             { icon: <TwitterIcon width={30} height={30} />, url:""},
-            { icon: <LinkedINIcon width={30} height={30} />, url:""},
+            { icon: <LinkedINIcon width={30} height={30} />, url:"https://www.linkedin.com/in/biddrup-kumar-mallick/"},
             { icon: <YoutubeIcon width={30} height={30} />, url:""},
         ]
     },
@@ -106,7 +106,9 @@ export const HireAPro = () =>{
                             <div><a className={`d-flex justifyCenter alignCenter ${homeST.profileEmail}`} href={`mailto: ${profile.email}`}><EmailIcon width={20} />{profile.email}</a></div>
                             <div className={`d-flex justifyCenter ${homeST.profileIcons}`}>
                                 {
-                                    profile.socials.map(social => <NavLink href={social.url} key={social.url}><a>{social.icon}</a></NavLink>)
+                                    profile.socials.map(social => <NavLink href={social.url} passHref={true} key={social.url}>
+                                        <a target={"_blank"} rel={"noopener noreferrer"}>{social.icon}</a>
+                                    </NavLink>)
                                 }
                             </div>
                         </div>)
