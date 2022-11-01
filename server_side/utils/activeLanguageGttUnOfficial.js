@@ -1,3 +1,9 @@
+export const audioFileTypes = [
+    { extension: "mp3", mime: "audio/mpeg"},    
+    { extension: "ogg", mime: "audio/ogg" },
+    { extension: "wav", mime: "audio/x-wav" },
+    { extension: "m4a", mime: "audio/mp4" },
+]
 
 export const gttActiveLanguages = [
     {code:'af', lang : 'Afrikaans'},
@@ -52,3 +58,6 @@ export const gttActiveLanguages = [
     {code:'vi',lang : 'Vietnamese'},
     {code:'cy',lang : 'Welsh'}
 ]
+
+
+

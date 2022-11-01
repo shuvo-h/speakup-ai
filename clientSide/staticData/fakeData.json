@@ -1,0 +1,94 @@
+{
+    "audioFileExtensions": [
+        { "extension": "mp3", "mime": "audio/mpeg"},    
+        { "extension": "ogg", "mime": "audio/ogg" },
+        { "extension": "wav", "mime": "audio/x-wav" },
+        { "extension": "m4a", "mime": "audio/mp4" }
+    ],
+    "packages": [
+        {
+            "name":"Personal",
+            "character_limit": 140000,
+            "character_limit_per_req": 10000,
+            "price": 14,
+            "discount_monthly": 10,
+            "discount_yearly": 25,
+            "discount_special": 0,
+            "status":"active",
+            "languages":
+            ["af","sq","ar","hy","ca","zh","zh-cn","zh-tw","zh-yue","hr","cs","da","nl","en","en-au","en-uk","en-us","eo","fi","fr","de","el","ht","hi","hu","is","id","it","ja","ko","la","lv","mk","no","pl","pt","pt-br","ro","ru","sr","sk","es","es-es","es-us","sw","sv","ta","th","tr","vi","cy"],
+            "fileTypes":[
+                { "extension": "mp3", "mime": "audio/mpeg"},    
+                { "extension": "ogg", "mime": "audio/ogg" },
+                { "extension": "wav", "mime": "audio/x-wav" },
+                { "extension": "m4a", "mime": "audio/mp4" }
+            ],
+            "category":"For Student",
+            "commercial":"Renown",
+            "req_per_day": 10000
+        },
+        {
+            "name":"Professional",
+            "character_limit": 350000,
+            "character_limit_per_req": 15000,
+            "price": 35,
+            "discount_monthly": 10,
+            "discount_yearly": 25,
+            "discount_special": 0,
+            "status":"active",
+            "languages":
+            ["af","sq","ar","hy","ca","zh","zh-cn","zh-tw","zh-yue","hr","cs","da","nl","en","en-au","en-uk","en-us","eo","fi","fr","de","el","ht","hi","hu","is","id","it","ja","ko","la","lv","mk","no","pl","pt","pt-br","ro","ru","sr","sk","es","es-es","es-us","sw","sv","ta","th","tr","vi","cy"],
+            "fileTypes":[
+                { "extension": "mp3", "mime": "audio/mpeg"},    
+                { "extension": "ogg", "mime": "audio/ogg" },
+                { "extension": "wav", "mime": "audio/x-wav" },
+                { "extension": "m4a", "mime": "audio/mp4" }
+            ],
+            "category":"For Small Agency",
+            "commercial":"Top Sold",
+            "req_per_day": 10000
+        },
+        {
+            "name":"Premium",
+            "character_limit": 1000000,
+            "character_limit_per_req": 20000,
+            "price": 100,
+            "discount_monthly": 10,
+            "discount_yearly": 25,
+            "discount_special": 0,
+            "status":"active",
+            "languages":
+            ["af","sq","ar","hy","ca","zh","zh-cn","zh-tw","zh-yue","hr","cs","da","nl","en","en-au","en-uk","en-us","eo","fi","fr","de","el","ht","hi","hu","is","id","it","ja","ko","la","lv","mk","no","pl","pt","pt-br","ro","ru","sr","sk","es","es-es","es-us","sw","sv","ta","th","tr","vi","cy"],
+            "fileTypes":[
+                { "extension": "mp3", "mime": "audio/mpeg"},    
+                { "extension": "ogg", "mime": "audio/ogg" },
+                { "extension": "wav", "mime": "audio/x-wav" },
+                { "extension": "m4a", "mime": "audio/mp4" }
+            ],
+            "category":"Medium Size Agency",
+            "commercial":"Most Used",
+            "req_per_day": 10000
+        },
+        {
+            "name":"Enterprise",
+            "character_limit": 10000000,
+            "character_limit_per_req": 20000,
+            "price": 200,
+            "discount_monthly": 10,
+            "discount_yearly": 25,
+            "discount_special": 0,
+            "status":"active",
+            "languages":
+            ["af","sq","ar","hy","ca","zh","zh-cn","zh-tw","zh-yue","hr","cs","da","nl","en","en-au","en-uk","en-us","eo","fi","fr","de","el","ht","hi","hu","is","id","it","ja","ko","la","lv","mk","no","pl","pt","pt-br","ro","ru","sr","sk","es","es-es","es-us","sw","sv","ta","th","tr","vi","cy"],
+            "fileTypes":[
+                { "extension": "mp3", "mime": "audio/mpeg"},    
+                { "extension": "ogg", "mime": "audio/ogg" },
+                { "extension": "wav", "mime": "audio/x-wav" },
+                { "extension": "m4a", "mime": "audio/mp4" }
+            ],
+            "category":"Company",
+            "commercial":"In Demand",
+            "req_per_day": 10000
+        }
+    ]
+}
