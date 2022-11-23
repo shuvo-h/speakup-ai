@@ -72,8 +72,10 @@ const proProfiles = [
     },
     {
         img: biddrupImg,
-        name:"Biddrup Kumar Mallick",
-        email:"biddrup3@gmail.com",
+        // name:"Biddrup Kumar Mallick",
+        name:"Daniel Willko",
+        // email:"biddrup3@gmail.com",
+        email:"daniel@example.com",
         position:"Website Analysist",
         description:"A professional website analysist working with SEO and site performance improvement over ten year.",
         socials:[

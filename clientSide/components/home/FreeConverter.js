@@ -29,7 +29,7 @@ const FreeConverter = () => {
         setIsConvertLoading(true);
         setConvertErr("");
         setFreeAudio(null);
-
+        
         // convert the audio
         fetch(`${envInfo.BACKEND_BASE_URI}/api/v1/audio/free_convert`,{
             method:"POST",
@@ -39,6 +39,7 @@ const FreeConverter = () => {
             body:JSON.stringify({text,lang:languageCode})
         })
         .then(res =>{
+            
             if (res.status === 200) {
                 return res.blob();
             }else{
@@ -46,7 +47,7 @@ const FreeConverter = () => {
             }
         })
         .then(data=>{
-            // console.log(data);
+            console.log(data);
             if (data.error) {
                 setConvertErr(data.message);
             }else{
